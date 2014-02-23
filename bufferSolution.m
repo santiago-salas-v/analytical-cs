@@ -68,6 +68,8 @@ screenSize  = get(0,'MonitorPositions');
 Ventana     = findobj('Tag','BufferSolutionGui');
 pageicon    = imread(['utils',filesep,'help_ug.png'],...
     'BackgroundColor',[1,1,1]);
+saveicon    = imread(['utils',filesep,'file_save.png'],...
+    'BackgroundColor',[1,1,1]);
 if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
     Ventana = figure('Menu','none','Toolbar','none',...
         'Color',[255,255,255]/255,'Name','Buffer Solution',...
@@ -161,8 +163,13 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         'Style','pushbutton',...
         'String','CALCULAR',...
         'Position',[30/100/2-1/6/2,1/4/2-1/4/3/2,1/6,1/4/3]);
-    BotonDeReporte = uipushtool(uitoolbar(Ventana),...
+    Herramientas    = uitoolbar(Ventana);
+    BotonDeReporte  = uipushtool(Herramientas,...
         'CData',            pageicon,...        
+        'Tag',              'uipushtool1',...
+        'TooltipString',    'Ver procedimiento de solución');
+    BotonDeGuardar  = uipushtool(Herramientas,...
+        'CData',            uint8(saveicon),...        
         'Tag',              'uipushtool1',...
         'TooltipString',    'Ver procedimiento de solución');
     handles = struct('Tabla_Entrada',Tabla_Entrada,...
@@ -170,7 +177,9 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         'texto2',texto2,'Panel2',Panel2,...
         'Ventana',Ventana,'Botones',Botones,...
         'Boton_1',Boton_1,'Boton_2',Boton_2,...
-        'Boton_3',Boton_3,'BotonDeReporte',BotonDeReporte);
+        'Boton_3',Boton_3,'BotonDeReporte',BotonDeReporte,...
+        'Herramientas',Herramientas,...
+        'BotonDeGuardar',BotonDeGuardar);
     handles.BotonCalcular = BotonCalcular;
     set(Tabla_Entrada,'Data',DatosIniciales);
     set(Tabla_Salida,'Data',DatosDeRespuesta);
@@ -300,4 +309,38 @@ end
 function GenerarReporte(~,~,~)
 publish('bufferSolution.m','format','html','evalCode',true);
 web('html/bufferSolution.html');
+end
+
+function GenerarCSV(hObject,eventData,handles)
+[success,~] = mkdir('DATA');
+if success 
+    [FileName,PathName,~]=uigetfile('./DATA/*.mat;*.xlsx;*.xls;*.csv');    
+else
+    [FileName,PathName,~]=uigetfile('./*.mat;*.xlsx;*.xls;*.csv');
+end
+Datos={};
+try
+    if FileName~=0
+        extension=regexp(FileName,'.mat$|.xls$|.xlsx$|.csv$','match');        
+        if strcmp('.mat',extension)
+            load([PathName filesep FileName],'Datos');
+        elseif strcmp('.csv',extension)        
+            [~,Datos]=cargarCSV([PathName FileName]);
+        elseif strcmp(extension,'.xls') ||...
+                strcmp(extension,'.xlsx')
+            [~,~,Datos]=xlsread([PathName FileName]);
+            Datos=quitarNaN(Datos);
+        end
+        %
+        % Poner estos valores en la tabla uitable1 (a la izq.)}
+        set(handles.Tabla_Entrada,'Data',Datos); %#ok<COLND>
+        %
+        % Correr el código para actualizar ( o generar en dado caso) la gráfica
+        % solicitada.
+        funcionDeCalcular(hObject,eventData,handles,varargin);
+    end
+catch exception
+    msgbox([exception.identifier,'. ',...
+        exception.message],'ERROR','error');
+end
 end
