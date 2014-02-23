@@ -25,15 +25,20 @@
 % * Parámetros:
 % $Vr$, $C_{HA_inicial}=C_{HA_0}V_0/Vr$, 
 % $C_{A^{(-)}_inicial}=C_{NaA_0}V_0/Vr$ (disociación completa), 
-% $C_{H_3O_0^{(+)}}=10^{-7}mol/L$, $C_{OH_0^{(-)}}=10^{-7}mol/L$.
+% $C_{H_3O_0^{(+)}}=10^{-7}mol/L$ (u otro valor, 
+% $C_{H_3O_0^{(+)}}=10^{-2}mol/L$), 
+% $C_{OH_0^{(-)}}=10^{-7}mol/L$ (u otro valor,
+% $C_{OH_0^{(-)}}={10^-14 \over 10^{-2}}mol/L = 10^{-12}$).
 %% Ecuaciones (por balance + equilibrio)
-% Sistema algebráico no lineal de 4 ecuaciones *independientes*
-% con 4 variables. 
+% Sistema algebráico no lineal, 4 ecuaciones *independientes*
+% y 4 variables.
 % $\begin{array}{cccccccccc} 
-% {C_{HA_0}V_0 \over Vr} & = & + & C_{HAeq} & + & 
+% \left({C_{HA_0}V_0 \over Vr} + C_{H_3O_0^{(+)}} 
+% - C_{OH_0^{(-)}} \right) & = & + & C_{HAeq} & + & 
 % 0 & - & C_{H_3Oeq^{(+)}} & + & C_{OHeq^{(-)}}
 % \\
-% {C_{NaA_0}V_0 \over Vr} & = & + & 0 & + & 
+% \left({C_{NaA_0}V_0 \over Vr} - C_{H_3O_0^{(+)}} + 
+% C_{OH_0^{(-)}} \right) & = & + & 0 & + & 
 % C_{Aeq^{(-)}} & + & C_{H_3Oeq^{(+)}} & - & C_{OHeq^{(-)}}
 % \\
 % 0 & = & + & Ka \times C_{Aeq^{(-)}} & - & 
@@ -46,15 +51,18 @@
 %% Solución
 % Reducción a 1 ecuación de 3er orden.
 % 
-% $\begin{array}{cccccccccccc} 
-% 0 & = & + & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 &
-% + & \left( 1-{1 \over Ka} \times 
-% {C_{NaA_0}V_0 \over Vr} \right) &   
-% \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^2 \\
-% & & - & \left( {Kw \over Ka^2}-{1 \over Ka} \times 
-% {C_{HA_0}V_0 \over Vr} \right) \times   
-% \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right] & 
-% - & {Kw \over Ka^2 }
+% $\begin{array}{cccccc} 
+% 0 & = & + & & & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 \\
+%   &   & + & \left( 1-{1 \over Ka} \times 
+% \left( {C_{NaA_0}V_0 \over Vr} - C_{H_3O_0^{(+)}} 
+% + C_{OH_0^{(-)}} \right)  \right) & \times
+% & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^2 \\
+%   &   & - & \left( {Kw \over Ka^2}-{1 \over Ka} \times 
+% \left({C_{HA_0}V_0 \over Vr} + C_{H_3O_0^{(+)}} 
+% - C_{OH_0^{(-)}} \right) \right) & \times &
+% \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^1 \\
+%   &   & - & {Kw \over Ka^2 } & \times & 
+% \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^0 \\
 % \end{array}$
 %
 % * Fijar alimentación.
