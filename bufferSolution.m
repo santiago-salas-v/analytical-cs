@@ -21,7 +21,7 @@
 % ${C_{HA_0}V_0 \over Vr} + {C_{NaA_0}V_0 \over Vr}$ .
 % La sal se disocia
 % completamente, el ácido de acuerdo con el equilibrio ácido-base.
-% * Partir de pH 7. 
+% * Partir de pH 7 u otro pH seleccionado con $C_{H_3O_0^{(+)}}$.
 % * Parámetros:
 % $Vr$, $C_{HA_inicial}=C_{HA_0}V_0/Vr$, 
 % $C_{A^{(-)}_inicial}=C_{NaA_0}V_0/Vr$ (disociación completa), 
