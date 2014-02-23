@@ -68,8 +68,8 @@ screenSize  = get(0,'MonitorPositions');
 Ventana     = findobj('Tag','BufferSolutionGui');
 pageicon    = imread(['utils',filesep,'help_ug.png'],...
     'BackgroundColor',[1,1,1]);
-saveicon    = imread(['utils',filesep,'file_save.png'],...
-    'BackgroundColor',[1,1,1]);
+saveicon    = imread(['utils',filesep,'icono_guardar.png']);
+openicon    = imread(['utils',filesep,'icono_abrir.png']);
 if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
     Ventana = figure('Menu','none','Toolbar','none',...
         'Color',[255,255,255]/255,'Name','Buffer Solution',...
@@ -169,9 +169,13 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         'Tag',              'uipushtool1',...
         'TooltipString',    'Ver procedimiento de solución');
     BotonDeGuardar  = uipushtool(Herramientas,...
-        'CData',            uint8(saveicon),...        
-        'Tag',              'uipushtool1',...
-        'TooltipString',    'Ver procedimiento de solución');
+        'CData',            saveicon,...        
+        'Tag',              'uipushtool2',...
+        'TooltipString',    'Guardar CSV');
+    BotonDeAbrir    = uipushtool(Herramientas,...
+        'CData',            openicon,...        
+        'Tag',              'uipushtool3',...
+        'TooltipString',    'Abrir CSV');
     handles = struct('Tabla_Entrada',Tabla_Entrada,...
         'Tabla_Salida',Tabla_Salida,'texto1',texto1,...
         'texto2',texto2,'Panel2',Panel2,...
@@ -179,7 +183,8 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         'Boton_1',Boton_1,'Boton_2',Boton_2,...
         'Boton_3',Boton_3,'BotonDeReporte',BotonDeReporte,...
         'Herramientas',Herramientas,...
-        'BotonDeGuardar',BotonDeGuardar);
+        'BotonDeGuardar',BotonDeGuardar,...
+        'BotonDeAbrir',BotonDeAbrir);
     handles.BotonCalcular = BotonCalcular;
     set(Tabla_Entrada,'Data',DatosIniciales);
     set(Tabla_Salida,'Data',DatosDeRespuesta);
@@ -192,6 +197,10 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         {@CambioDeBoton,handles});
     set(BotonDeReporte,'ClickedCallback',...
         {@GenerarReporte,handles});
+    set(BotonDeGuardar,'ClickedCallback',...
+        {@GenerarCSV,handles});
+    set(BotonDeAbrir,'ClickedCallback',...
+        {@AbrirCSV,handles});
     funcionDeCalcular(Tabla_Entrada,{},handles);
 else
     figure(Ventana);
@@ -202,6 +211,14 @@ function funcionDeCalcular(~,~,handles,varargin)
 Datos_entrada   = get(handles.Tabla_Entrada,'Data');
 Datos           = ...
     Datos_entrada(cellfun(@isvarname,Datos_entrada(:,1)),:);
+Datos_no_numericos              = ...
+    cellfun(@(x)~isnumeric(x),Datos(:,2));
+try
+Datos(Datos_no_numericos,2)     = ...
+    cellfun(@(x){eval(x)},Datos(Datos_no_numericos,2));
+catch e
+    msgbox(e.message);
+end
 Datos_s         = cell2struct(Datos(:,2),Datos(:,1),1);
 Respuesta       = get(handles.Tabla_Salida,'Data');
 
@@ -281,6 +298,13 @@ for i=1:size(Respuesta,1)
     end
 end
 
+for i=1:size(Datos_entrada,1)
+    if ~isnumeric(Datos_entrada{i,2}) &&...
+            ~strcmp(Datos_entrada{i,2},'')
+        Datos_entrada{i,2} = eval(Datos_entrada{i,2});
+    end
+end
+
 Botones_Matriz = get(handles.Botones,'Children');
 
 for i=1:3
@@ -311,7 +335,7 @@ publish('bufferSolution.m','format','html','evalCode',true);
 web('html/bufferSolution.html');
 end
 
-function GenerarCSV(hObject,eventData,handles)
+function AbrirCSV(hObject,eventData,handles)
 [success,~] = mkdir('DATA');
 if success 
     [FileName,PathName,~]=uigetfile('./DATA/*.mat;*.xlsx;*.xls;*.csv');    
@@ -337,10 +361,59 @@ try
         %
         % Correr el código para actualizar ( o generar en dado caso) la gráfica
         % solicitada.
-        funcionDeCalcular(hObject,eventData,handles,varargin);
+        funcionDeCalcular(hObject,eventData,handles);
     end
 catch exception
     msgbox([exception.identifier,'. ',...
         exception.message],'ERROR','error');
+end
+end
+
+function GenerarCSV(hObject,eventData,handles)
+Datos = get(handles.Tabla_Entrada,'Data');
+[success,~] = mkdir('DATA');
+success = success && fileattrib('./DATA','+w');
+try
+    actxserver('Excel.Application');
+    ExcelInstalled = true;
+catch exception %#ok<NASGU>
+    ExcelInstalled = false;
+end
+if ExcelInstalled 
+    defaultExtension='.xls';
+elseif ~ExcelInstalled
+    defaultExtension='.csv';
+end
+if success
+    [FileName,PathName,~]=uiputfile({'*.mat';'*.xls';'*.csv'},...
+        'Guardar estado de variables',['./DATA/*',defaultExtension]);
+else
+    [FileName,PathName,~]=uiputfile({'*.mat';'*.xls';'*.csv'},...
+        'Guardar estado de variables',['./*',defaultExtension]);
+end
+if FileName~=0
+    extension=regexp(FileName,'.mat$|.xls$|.xlsx$|.csv$','match');
+    if isempty(extension)
+        extension='.xls';
+        FileName=[FileName,extension];
+    end
+    if strcmp('.mat',extension)
+        save([PathName,FileName],nombreDeVariable(Datos));
+    elseif strcmp(extension,'.xls') ||...
+            strcmp(extension,'.xlsx')
+        try
+        xlswrite([PathName,FileName],...
+            get(handles.uitable1,'Data'));    
+        catch exception %#ok<NASGU>
+            warning('MATLAB:xlswrite:NoCOMServer',...
+            ['Could not start Excel server for export.\n' ...
+            'XLSWRITE will attempt to write file in CSV format.']);
+            guardarCSV([PathName,FileName],...
+            get(handles.uitable1,'Data'));
+        end
+    elseif strcmp(extension,'.csv')
+        guardarCSV([PathName,FileName],...
+            get(handles.Tabla_Entrada,'Data'));
+    end
 end
 end
