@@ -1,0 +1,9 @@
+*.exe
+*.asv
+*ignorethis*
+*.tmp
+*~$.*
+html/
+borrar/
+bu/
+codegen/
