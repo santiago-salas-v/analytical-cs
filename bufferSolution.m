@@ -1,6 +1,10 @@
 %% BUFFER SOLUTIONS
 % Calcula disoluciones 'buffer' / tampón, basado en el balance
 % de materia y equilibrios ácido - base.
+%% Esquema
+% 
+% <<../utils/diagrama_1.png>>
+% 
 %% Reacciones
 % _1.- Adición de Base Fuerte LiB y / o Ácido Fuerte HAf_
 % $\begin{array}{ccccccc|cc} 
@@ -40,19 +44,26 @@
 % Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
 %      10^{-14} & = K_{c3} \times C_{H_2Oeq}^2 \\
 % \end{array}$
-%% Condiciones iniciales
-% * Agregar buffer en forma de sal + ácido: 
-% ${C_{HA_0}V_0 \over Vr} + {C_{NaA_0}V_0 \over Vr}$ .
+%% Condiciones de alimentación
+% * Agregar base fuerte $V_0 C_{LiB_0}$ y ácido fuerte 
+%   $V_0 C_{HAf_0}$.
+% * Agregar buffer en forma de ácido $V_0 C_{HA_0}$ + sal 
+%   $V_0 C_{NaA_0}$.
 % La sal se disocia
 % completamente, el ácido de acuerdo con el equilibrio ácido-base.
-% * Partir de pH 7 u otro pH seleccionado con $C_{H_3O_0^{(+)}}$.
 % * Parámetros:
-% $Vr$, $C_{HA_inicial}=C_{HA_0}V_0/Vr$, 
-% $C_{A^{(-)}_inicial}=C_{NaA_0}V_0/Vr$ (disociación completa), 
-% $C_{H_3O_0^{(+)}}=10^{-7}mol/L$ (u otro valor, 
-% $C_{H_3O_0^{(+)}}=10^{-2}mol/L$), 
-% $C_{OH_0^{(-)}}=10^{-7}mol/L$ (u otro valor,
-% $C_{OH_0^{(-)}}={10^-14 \over 10^{-2}}mol/L = 10^{-12}$).
+%
+% $Vr$
+%
+% $V_0 C_{HA_0}$
+%
+% $V_0 C_{NaA_0}$
+%
+% $V_0 C_{LiB_0}$
+%
+% $V_0 C_{HAf_0}$
+%
+%
 %% Ecuaciones
 % Por balance de materia + carga + equilibrios:
 %
@@ -98,6 +109,17 @@
 % $C_{H_3Oeq^{(+)}}$ , calcular pH.
 % * Calcular $C_{OHeq^{(-)}}$ por ec. 4.
 % * Calcular $C_{Aeq^{(-)}}$ y $C_{HAeq}$ por ecs. 1,2.
+% * Respuesta:
+% 
+% $C_{H_3Oeq^{(+)}}$, $pH$
+%
+% $C_{OHeq^{(-)}}$
+% 
+% $C_{Aeq^{(-)}}$
+%
+% $C_{HAeq}$
+%
+% $C_{Na^{(+)}}$
 function bufferSolution()
 % Generar ventana
 screenSize  = get(0,'MonitorPositions');
