@@ -120,6 +120,10 @@
 % $C_{HAeq}$
 %
 % $C_{Na^{(+)}}$
+%
+% $C_{Li^{(+)}}$
+%
+% $C_{Af^{(-)}}$
 function bufferSolution()
 % Generar ventana
 screenSize  = get(0,'MonitorPositions');
