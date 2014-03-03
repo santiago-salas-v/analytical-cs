@@ -1,20 +1,40 @@
 %% BUFFER SOLUTIONS
-% Calcula disoluciones tampón / buffer, basado en el balance
+% Calcula disoluciones 'buffer' / tampón, basado en el balance
 % de materia y equilibrios ácido - base.
 %% Reacciones
+% _1.- Adición de Base Fuerte LiB y / o Ácido Fuerte HAf_
+% $\begin{array}{ccccccc|cc} 
+%  & & LiB   & {\bf \longrightarrow \atop \leftarrow} &
+% Li^{(+)} & + & B^{(-)} & 
+% Kc_I = C_{Lieq^{(+)}} \times C_{Beq^{(-)}}  
+%      & \rightarrow \infty \\
+% B^{(-)} & + & H_2O   & {\bf \longrightarrow \atop \leftarrow} &
+% HB &  + & OH^{(-)}  & 
+% Kb_I = C_{OHeq^{(-)}} \times C_{HBeq} / 
+%      C_{Beq^{(-)}}  &  \rightarrow \infty \\
+% HAf & + & H_2O   & {\longrightarrow \atop \leftarrow} &
+% H_3O^{(+)} & + & Af^{(-)} & 
+% Ka_I = C_{H_3Oeq^{(+)}} \times C_{Afeq^{(-)}} / 
+%      C_{HAfeq}  & \rightarrow \infty \\
+%    & 2 & H_2O & {\rightarrow \atop \leftarrow} &
+% H_3O^{(+)} & + &  OH^{(-)} & 
+% Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
+%      10^{-14} & = K_{c3} \times C_{H_2Oeq}^2 \\
+% \end{array}$
+% _2.- Adición de tampón / buffer HA + NaA_
 % $\begin{array}{ccccccc|cc} 
 % HA & + & H_2O   & {\rightarrow \atop \leftarrow} &
 % H_3O^{(+)} & + & A^{(-)} & 
 % Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} / 
-%      C_{HAeq}  & \\
-%    & + & H_2O & {\rightarrow \atop \leftarrow} &
-% H_3O^{(+)} & + &  OH^{(-)} & 
-% Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
-%      10^{-14} & = K_{ca} \times C_{H_2Oeq}^2 \\
+%      C_{HAeq}  & = K_{c1} \times C_{H_2Oeq} \\
 % A^{(-)} & + & H_2O   & {\rightarrow \atop \leftarrow} &
 % HA &  + & OH^{(-)}  & 
 % Kb = C_{OHeq^{(-)}} \times C_{HAeq} / 
-%      C_{Aeq^{(-)}}  & = K_{cb} \times C_{H_2Oeq} \\
+%      C_{Aeq^{(-)}}  & = K_{c2} \times C_{H_2Oeq} \\
+%    & 2 & H_2O & {\rightarrow \atop \leftarrow} &
+% H_3O^{(+)} & + &  OH^{(-)} & 
+% Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
+%      10^{-14} & = K_{c3} \times C_{H_2Oeq}^2 \\
 % \end{array}$
 %% Condiciones iniciales
 % * Agregar buffer en forma de sal + ácido: 
@@ -29,19 +49,21 @@
 % $C_{H_3O_0^{(+)}}=10^{-2}mol/L$), 
 % $C_{OH_0^{(-)}}=10^{-7}mol/L$ (u otro valor,
 % $C_{OH_0^{(-)}}={10^-14 \over 10^{-2}}mol/L = 10^{-12}$).
-%% Ecuaciones (por balance + equilibrio)
-% Sistema algebráico no lineal, 4 ecuaciones *independientes*
-% y 4 variables.
+%% Ecuaciones
+% Por balance de materia + carga + equilibrios:
+%
+% Resulta un sistema algebráico no lineal, 4 ecuaciones 
+% *independientes* y 4 variables.
 % $\begin{array}{cccccccccc} 
-% \left({C_{HA_0}V_0 \over Vr} + C_{H_3O_0^{(+)}} 
-% - C_{OH_0^{(-)}} \right) & = & + & C_{HAeq} & + & 
-% 0 & - & C_{H_3Oeq^{(+)}} & + & C_{OHeq^{(-)}}
+% {V_0 \over Vr} \times \left({C_{HA_0}} + \left( C_{HAf_0}
+% - C_{LiB_0} \right) \right) & = & + & C_{HAeq} & + & 
+% 0 & + & C_{H_3Oeq^{(+)}} & - & C_{OHeq^{(-)}}
 % \\
-% \left({C_{NaA_0}V_0 \over Vr} - C_{H_3O_0^{(+)}} + 
-% C_{OH_0^{(-)}} \right) & = & + & 0 & + & 
-% C_{Aeq^{(-)}} & + & C_{H_3Oeq^{(+)}} & - & C_{OHeq^{(-)}}
+% {V_0 \over Vr} \times \left({C_{NaA_0}} - \left( C_{HAf_0}
+% - C_{LiB_0} \right) \right) & = & + & 0 & + & 
+% C_{Aeq^{(-)}} & - & C_{H_3Oeq^{(+)}} & + & C_{OHeq^{(-)}}
 % \\
-% 0 & = & + & Ka \times C_{Aeq^{(-)}} & - & 
+% 0 & = & + & Ka \times C_{HAeq} & - & 
 % C_{Aeq^{(-)}} & \times & C_{H_3Oeq^{(+)}} & + & 0
 % \\
 % Kw & = & + & 0 & + & 0 & 
@@ -49,17 +71,19 @@
 % C_{OHeq^{(-)}} \\
 % \end{array}$
 %% Solución
-% Reducción a 1 ecuación de 3er orden.
+% Reducción a 1 ecuación polinomial de 3er orden.
 % 
 % $\begin{array}{cccccc} 
-% 0 & = & + & & & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 \\
-%   &   & + & \left( 1-{1 \over Ka} \times 
-% \left( {C_{NaA_0}V_0 \over Vr} - C_{H_3O_0^{(+)}} 
-% + C_{OH_0^{(-)}} \right)  \right) & \times
+% 0 & = & + & 
+% 1 & \times & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 \\
+%   &   & + & \left( 1+{{V_0 / Vr} \over Ka} \times
+% \left(  {C_{NaA_0}} - \left( C_{HAf_0} 
+% - C_{LiB_0} \right)  \right) \right) & \times
 % & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^2 \\
-%   &   & - & \left( {Kw \over Ka^2}-{1 \over Ka} \times 
-% \left({C_{HA_0}V_0 \over Vr} + C_{H_3O_0^{(+)}} 
-% - C_{OH_0^{(-)}} \right) \right) & \times &
+%   &   & - & \left( {Kw \over Ka^2} + 
+% {{V_0 / Vr} \over Ka} \times 
+% \left(  {C_{NaA_0}} - \left( C_{HAf_0} 
+% - C_{LiB_0} \right)  \right) \right) & \times &
 % \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^1 \\
 %   &   & - & {Kw \over Ka^2 } & \times & 
 % \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^0 \\
