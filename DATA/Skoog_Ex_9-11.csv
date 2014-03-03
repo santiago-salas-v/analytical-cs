@@ -1,13 +1,10 @@
-sep=|
-COND. IN./ALIM.||
-C_HA0|         0.4|gmol/L
-C_A0|           1|gmol/L
-C_HAinicial|0.4000000000000001|gmol/L
-C_Ainicial|           1|gmol/L
-C_H3Oinicial|      1E-007|gmol/L
-C_OHinicial|      1E-007|gmol/L
-Ka|     0.00018|
-Kw|      1E-014|
-MEDIO REAC.||
-V0|         0.2|L
-Vr|         0.2|L
+COND. IN./ALIM.,,
+C_HA0,0.4,gmol/L
+C_NaA0,1,gmol/L
+C_HAfuerte0,0,gmol/L
+C_LiBfuerte0,0,gmol/L
+Ka,0.00018,
+Kw,1.00E-14,
+MEDIO REAC.,,
+V0,0.2,L
+Vr,0.2,L
