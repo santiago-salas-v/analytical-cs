@@ -23,6 +23,10 @@
 % \end{array}$
 % _2.- Adición de tampón / buffer HA + NaA_
 % $\begin{array}{ccccccc|cc} 
+%  & & NaA   & {\bf \longrightarrow \atop \leftarrow} &
+% Na^{(+)} & + & A^{(-)} & 
+% Kc_{II} = C_{Naeq^{(+)}} \times C_{Aeq^{(-)}}  
+%      & \rightarrow \infty \\
 % HA & + & H_2O   & {\rightarrow \atop \leftarrow} &
 % H_3O^{(+)} & + & A^{(-)} & 
 % Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} / 
