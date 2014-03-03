@@ -500,7 +500,7 @@ catch exception %#ok<NASGU>
     ExcelInstalled = false;
 end
 if ExcelInstalled 
-    defaultExtension='.xls';
+    defaultExtension='.csv';
 elseif ~ExcelInstalled
     defaultExtension='.csv';
 end
@@ -529,7 +529,7 @@ if FileName~=0
             ['Could not start Excel server for export.\n' ...
             'XLSWRITE will attempt to write file in CSV format.']);
             guardarCSV([PathName,FileName],...
-            get(handles.uitable1,'Data'));
+            get(handles.Tabla_Entrada,'Data'));
         end
     elseif strcmp(extension,'.csv')
         guardarCSV([PathName,FileName],...

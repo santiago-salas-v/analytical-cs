@@ -1,0 +1,11 @@
+sep=|
+COND. IN./ALIM.||
+C_HA0|         0.4|gmol/L
+C_NaA0|           0|gmol/L
+C_HAfuerte0|           0|gmol/L
+C_LiBfuerte0|         0.2|gmol/L
+Ka|    0.000745|
+Kw|      1E-014|
+MEDIO REAC.||
+V0|         0.2|L
+Vr|         0.2|L
