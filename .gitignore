@@ -3,7 +3,6 @@
 *ignorethis*
 *.tmp
 *~$.*
-html/
 borrar/
 bu/
 codegen/

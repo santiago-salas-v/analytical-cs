@@ -1,0 +1,1183 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>BUFFER SOLUTIONS</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-03-08"><meta name="DC.source" content="bufferSolution.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>BUFFER SOLUTIONS</h1><!--introduction--><p>Calcula disoluciones 'buffer' / tamp&oacute;n, basado en el balance de materia y equilibrios &aacute;cido - base.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Esquema</a></li><li><a href="#2">Reacciones</a></li><li><a href="#3">Condiciones de alimentaci&oacute;n</a></li><li><a href="#4">Ecuaciones</a></li><li><a href="#5">Soluci&oacute;n</a></li></ul></div><h2>Esquema<a name="1"></a></h2><p><img vspace="5" hspace="5" src="../utils/diagrama_1.png" alt=""> </p><h2>Reacciones<a name="2"></a></h2><p><i>1.- Adici&oacute;n de Base Fuerte LiB y / o &Aacute;cido Fuerte HAf</i> <img src="bufferSolution_eq92341.png" alt="$\begin{array}{ccccccc|cc}  &amp; &amp; LiB   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; Li^{(+)} &amp; + &amp; B^{(-)} &amp; Kc_I = C_{Lieq^{(+)}} \times C_{Beq^{(-)}}      &amp; \rightarrow \infty \\ B^{(-)} &amp; + &amp; H_2O   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; HB &amp;  + &amp; OH^{(-)}  &amp; Kb_I = C_{OHeq^{(-)}} \times C_{HBeq} /      C_{Beq^{(-)}}  &amp;  \rightarrow \infty \\ HAf &amp; + &amp; H_2O   &amp; {\longrightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp; Af^{(-)} &amp; Ka_I = C_{H_3Oeq^{(+)}} \times C_{Afeq^{(-)}} /      C_{HAfeq}  &amp; \rightarrow \infty \\    &amp; 2 &amp; H_2O &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp;  OH^{(-)} &amp; Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  =      10^{-14} &amp; = K_{c3} \times C_{H_2Oeq}^2 \\ \end{array}$"> <i>2.- Adici&oacute;n de tamp&oacute;n / buffer HA + NaA</i> <img src="bufferSolution_eq68200.png" alt="$\begin{array}{ccccccc|cc}  &amp; &amp; NaA   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; Na^{(+)} &amp; + &amp; A^{(-)} &amp; Kc_{II} = C_{Naeq^{(+)}} \times C_{Aeq^{(-)}}      &amp; \rightarrow \infty \\ HA &amp; + &amp; H_2O   &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp; A^{(-)} &amp; Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} /      C_{HAeq}  &amp; = K_{c1} \times C_{H_2Oeq} \\ A^{(-)} &amp; + &amp; H_2O   &amp; {\rightarrow \atop \leftarrow} &amp; HA &amp;  + &amp; OH^{(-)}  &amp; Kb = C_{OHeq^{(-)}} \times C_{HAeq} /      C_{Aeq^{(-)}}  &amp; = K_{c2} \times C_{H_2Oeq} \\    &amp; 2 &amp; H_2O &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp;  OH^{(-)} &amp; Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  =      10^{-14} &amp; = K_{c3} \times C_{H_2Oeq}^2 \\ \end{array}$"></p><h2>Condiciones de alimentaci&oacute;n<a name="3"></a></h2><div><ul><li>Agregar base fuerte <img src="bufferSolution_eq45260.png" alt="$V_0 C_{LiB_0}$"> y &aacute;cido fuerte   <img src="bufferSolution_eq80636.png" alt="$V_0 C_{HAf_0}$">.</li><li>Agregar buffer en forma de &aacute;cido <img src="bufferSolution_eq48403.png" alt="$V_0 C_{HA_0}$"> + sal   <img src="bufferSolution_eq89101.png" alt="$V_0 C_{NaA_0}$">. La sal se disocia completamente, el &aacute;cido de acuerdo con el equilibrio &aacute;cido-base.</li><li>Par&aacute;metros:</li></ul></div><p><img src="bufferSolution_eq16808.png" alt="$Vr$"></p><p><img src="bufferSolution_eq48403.png" alt="$V_0 C_{HA_0}$"></p><p><img src="bufferSolution_eq89101.png" alt="$V_0 C_{NaA_0}$"></p><p><img src="bufferSolution_eq45260.png" alt="$V_0 C_{LiB_0}$"></p><p><img src="bufferSolution_eq80636.png" alt="$V_0 C_{HAf_0}$"></p><h2>Ecuaciones<a name="4"></a></h2><p>Por balance de materia + carga + equilibrios:</p><p>Resulta un sistema algebr&aacute;ico no lineal, 4 ecuaciones <b>independientes</b> y 4 variables. <img src="bufferSolution_eq98855.png" alt="$\begin{array}{cccccccccc} {V_0 \over Vr} \times \left({C_{HA_0}} + \left( C_{HAf_0} - C_{LiB_0} \right) \right) &amp; = &amp; + &amp; C_{HAeq} &amp; + &amp; 0 &amp; + &amp; C_{H_3Oeq^{(+)}} &amp; - &amp; C_{OHeq^{(-)}} \\ {V_0 \over Vr} \times \left({C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right) \right) &amp; = &amp; + &amp; 0 &amp; + &amp; C_{Aeq^{(-)}} &amp; - &amp; C_{H_3Oeq^{(+)}} &amp; + &amp; C_{OHeq^{(-)}} \\ 0 &amp; = &amp; + &amp; Ka \times C_{HAeq} &amp; - &amp; C_{Aeq^{(-)}} &amp; \times &amp; C_{H_3Oeq^{(+)}} &amp; + &amp; 0 \\ Kw &amp; = &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; C_{H_3Oeq^{(+)}} &amp; \times &amp; C_{OHeq^{(-)}} \\ \end{array}$"></p><h2>Soluci&oacute;n<a name="5"></a></h2><p>Reducci&oacute;n a 1 ecuaci&oacute;n polinomial de 3er orden.</p><p><img src="bufferSolution_eq52421.png" alt="$\begin{array}{cccccc} 0 &amp; = &amp; + &amp; 1 &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 \\   &amp;   &amp; + &amp; \left( 1+{{V_0 / Vr} \over Ka} \times \left(  {C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right)  \right) \right) &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^2 \\   &amp;   &amp; - &amp; \left( {Kw \over Ka^2} + {{V_0 / Vr} \over Ka} \times \left(  {C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right)  \right) \right) &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^1 \\   &amp;   &amp; - &amp; {Kw \over Ka^2 } &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^0 \\ \end{array}$"></p><div><ul><li>Fijar alimentaci&oacute;n.</li><li>Resolver ecuaci&oacute;n c&uacute;bica para <img src="bufferSolution_eq59740.png" alt="$C_{H_3Oeq^{(+)}}$"> , calcular pH.</li><li>Calcular <img src="bufferSolution_eq36011.png" alt="$C_{OHeq^{(-)}}$"> por ec. 4.</li><li>Calcular <img src="bufferSolution_eq03388.png" alt="$C_{Aeq^{(-)}}$"> y <img src="bufferSolution_eq84374.png" alt="$C_{HAeq}$"> por ecs. 1,2.</li><li>Respuesta:</li></ul></div><p><img src="bufferSolution_eq59740.png" alt="$C_{H_3Oeq^{(+)}}$">, <img src="bufferSolution_eq03665.png" alt="$pH$"></p><p><img src="bufferSolution_eq36011.png" alt="$C_{OHeq^{(-)}}$"></p><p><img src="bufferSolution_eq03388.png" alt="$C_{Aeq^{(-)}}$"></p><p><img src="bufferSolution_eq84374.png" alt="$C_{HAeq}$"></p><p><img src="bufferSolution_eq37685.png" alt="$C_{Na^{(+)}}$"></p><p><img src="bufferSolution_eq75412.png" alt="$C_{Li^{(+)}}$"></p><p><img src="bufferSolution_eq69414.png" alt="$C_{Af^{(-)}}$"></p><pre class="codeinput"><span class="keyword">function</span> bufferSolution()
+<span class="comment">% Generar ventana</span>
+screenSize  = get(0,<span class="string">'MonitorPositions'</span>);
+Ventana     = findobj(<span class="string">'Tag'</span>,<span class="string">'BufferSolutionGui'</span>);
+pageicon    = imread([<span class="string">'utils'</span>,filesep,<span class="string">'help_ug.png'</span>],<span class="keyword">...</span>
+    <span class="string">'BackgroundColor'</span>,[1,1,1]);
+saveicon    = imread([<span class="string">'utils'</span>,filesep,<span class="string">'icono_guardar.png'</span>]);
+openicon    = imread([<span class="string">'utils'</span>,filesep,<span class="string">'icono_abrir.png'</span>]);
+<span class="keyword">if</span> isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
+    Ventana = figure(<span class="string">'Menu'</span>,<span class="string">'none'</span>,<span class="string">'Toolbar'</span>,<span class="string">'figure'</span>,<span class="keyword">...</span>
+        <span class="string">'Color'</span>,[255,255,255]/255,<span class="string">'Name'</span>,<span class="string">'Buffer Solution'</span>,<span class="keyword">...</span>
+        <span class="string">'WindowStyle'</span>,<span class="string">'normal'</span>,<span class="string">'NumberTitle'</span>,<span class="string">'off'</span>,<span class="string">'Resize'</span>,<span class="string">'off'</span>,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'pixels'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[screenSize(3:4)/2-[780,400]/2,780,400],<span class="keyword">...</span>
+        <span class="string">'Tag'</span>,<span class="string">'BufferSolutionGui'</span>);
+    Panel2          = uipanel(<span class="string">'Parent'</span>,Ventana,<span class="keyword">...</span>
+        <span class="string">'Title'</span>,<span class="string">'Buffer Solution'</span>,<span class="keyword">...</span>
+        <span class="string">'BackgroundColor'</span>,[255,255,255]/255);
+    Tabla_Entrada   = uitable(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[0,1/4,30/100,3/4-1/8],<span class="keyword">...</span>
+        <span class="string">'RowName'</span>,{},<span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>,{<span class="string">'VARIABLE'</span>,<span class="string">'VALOR'</span>,<span class="string">'UNIDADES'</span>},<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>,{  80 <span class="string">'auto'</span> <span class="string">'auto'</span> },<span class="keyword">...</span>
+        <span class="string">'ColumnEditable'</span>,[ false true false ]);
+    Tabla_Salida   = uitable(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[1-30/100,1/4,30/100,3/4-1/8],<span class="keyword">...</span>
+        <span class="string">'RowName'</span>,{},<span class="keyword">...</span>
+        <span class="string">'ColumnName'</span>,{<span class="string">'VARIABLE'</span>,<span class="string">'VALOR'</span>,<span class="string">'UNIDADES'</span>},<span class="keyword">...</span>
+        <span class="string">'ColumnWidth'</span>,{  80 <span class="string">'auto'</span> <span class="string">'auto'</span> },<span class="keyword">...</span>
+        <span class="string">'ColumnEditable'</span>,[ false false false ]);
+    texto1  = uicontrol(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Style'</span>,<span class="string">'text'</span>,<span class="keyword">...</span>
+        <span class="string">'String'</span>,<span class="string">'PAR&Aacute;METROS'</span>,<span class="keyword">...</span>
+        <span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[30/100/2-1/6/2,1-1/8+1/4/6,1/6,1/4/6]);
+    texto2  = uicontrol(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Style'</span>,<span class="string">'text'</span>,<span class="keyword">...</span>
+        <span class="string">'String'</span>,<span class="string">'RESPUESTA'</span>,<span class="keyword">...</span>
+        <span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[1-30/100+1/6/2,1-1/8+1/4/6,1/6,1/4/6]);
+    Botones = uibuttongroup(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Title'</span>,<span class="string">'RAICES'</span>,<span class="keyword">...</span>
+        <span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[1-30/100,1/4/10,30/100,9/4/10]);
+    Boton_1 = uicontrol(<span class="string">'Parent'</span>,Botones,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Style'</span>,<span class="string">'radiobutton'</span>,<span class="keyword">...</span>
+        <span class="string">'String'</span>,<span class="string">'pH='</span>,<span class="keyword">...</span>
+        <span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[1/22,1/11,1-1/22,3/11],<span class="keyword">...</span>
+        <span class="string">'Enable'</span>,<span class="string">'off'</span>);
+    Boton_2 = uicontrol(<span class="string">'Parent'</span>,Botones,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Style'</span>,<span class="string">'radiobutton'</span>,<span class="keyword">...</span>
+        <span class="string">'String'</span>,<span class="string">'pH='</span>,<span class="keyword">...</span>
+        <span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[1/22,4/11,1-1/22,3/11],<span class="keyword">...</span>
+        <span class="string">'Enable'</span>,<span class="string">'off'</span>);
+    Boton_3 = uicontrol(<span class="string">'Parent'</span>,Botones,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Style'</span>,<span class="string">'radiobutton'</span>,<span class="keyword">...</span>
+        <span class="string">'String'</span>,<span class="string">'pH='</span>,<span class="keyword">...</span>
+        <span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[1/22,7/11,1-1/22,3/11],<span class="keyword">...</span>
+        <span class="string">'Enable'</span>,<span class="string">'off'</span>);
+    DatosIniciales      =    <span class="keyword">...</span>
+        {<span class="keyword">...</span>
+        <span class="string">'COND. IN./ALIM.'</span> <span class="string">''</span>          <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'C_HA0'</span>         0.3         <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_NaA0'</span>        0.2         <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_HAfuerte0'</span>   0           <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_LiBfuerte0'</span>  0           <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'Ka'</span>            5.70*10^-10 <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'Kw'</span>            10^-14      <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'MEDIO REAC.'</span>   <span class="string">''</span>          <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'V0'</span>            0.2         <span class="string">'L'</span>;<span class="keyword">...</span>
+        <span class="string">'Vr'</span>            0.2         <span class="string">'L'</span>;<span class="keyword">...</span>
+        };
+    DatosDeRespuesta      =    <span class="keyword">...</span>
+        {<span class="keyword">...</span>
+        <span class="string">'pH'</span>            []      <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'pOH'</span>           []      <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'pKa'</span>           []      <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'pKb'</span>           []      <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'C_HA'</span>          []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_A'</span>           []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_Na'</span>          []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_H3O'</span>         []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_OH'</span>          []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_Li'</span>          []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_Afuerte'</span>     []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_Bfuerte'</span>     []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_HAfuerte'</span>    []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_LiBfuerte'</span>   []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        };
+    BotonCalcular = uicontrol(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'Style'</span>,<span class="string">'pushbutton'</span>,<span class="keyword">...</span>
+        <span class="string">'String'</span>,<span class="string">'CALCULAR'</span>,<span class="keyword">...</span>
+        <span class="string">'Position'</span>,[30/100/2-1/6/2,1/4/2-1/4/3/2,1/6,1/4/3]);
+    Herramientas    = findall(Ventana,<span class="string">'Type'</span>,<span class="string">'uitoolbar'</span>);
+    BotonesEnBarra  = <span class="keyword">...</span>
+        [<span class="keyword">...</span>
+        get(findall(Ventana,<span class="string">'Type'</span>,<span class="string">'uipushtool'</span>),<span class="string">'ToolTipString'</span>);<span class="keyword">...</span>
+        get(findall(Ventana,<span class="string">'Type'</span>,<span class="string">'uitoggletool'</span>),<span class="string">'ToolTipString'</span>);
+        ];
+    <span class="keyword">for</span> i=1:size(BotonesEnBarra,1)
+        <span class="keyword">if</span> <span class="keyword">...</span>
+                ~strcmp(BotonesEnBarra{i},<span class="string">'Insert Legend'</span>) &amp;&amp; <span class="keyword">...</span>
+                ~strcmp(BotonesEnBarra{i},<span class="string">'Data Cursor'</span>) &amp;&amp; <span class="keyword">...</span>
+                ~strcmp(BotonesEnBarra{i},<span class="string">'Pan'</span>) &amp;&amp; <span class="keyword">...</span>
+                ~strcmp(BotonesEnBarra{i},<span class="string">'Zoom Out'</span>) &amp;&amp; <span class="keyword">...</span>
+                ~strcmp(BotonesEnBarra{i},<span class="string">'Zoom In'</span>)
+            set(findall(Herramientas,<span class="string">'ToolTipString'</span>,<span class="keyword">...</span>
+                BotonesEnBarra{i}),<span class="string">'Visible'</span>,<span class="string">'Off'</span>);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    BotonDeGuardar  = uipushtool(Herramientas,<span class="keyword">...</span>
+        <span class="string">'CData'</span>,            saveicon,<span class="keyword">...</span>
+        <span class="string">'Tag'</span>,              <span class="string">'uipushtool2'</span>,<span class="keyword">...</span>
+        <span class="string">'TooltipString'</span>,    <span class="string">'Guardar CSV'</span>,<span class="keyword">...</span>
+        <span class="string">'Separator'</span>,        <span class="string">'on'</span>);
+    BotonDeAbrir    = uipushtool(Herramientas,<span class="keyword">...</span>
+        <span class="string">'CData'</span>,            openicon,<span class="keyword">...</span>
+        <span class="string">'Tag'</span>,              <span class="string">'uipushtool3'</span>,<span class="keyword">...</span>
+        <span class="string">'TooltipString'</span>,    <span class="string">'Abrir CSV'</span>);
+    BotonDeReporte  = uipushtool(Herramientas,<span class="keyword">...</span>
+        <span class="string">'CData'</span>,            pageicon,<span class="keyword">...</span>
+        <span class="string">'Tag'</span>,              <span class="string">'uipushtool1'</span>,<span class="keyword">...</span>
+        <span class="string">'TooltipString'</span>,    <span class="string">'Ver procedimiento de soluci&oacute;n'</span>,<span class="keyword">...</span>
+        <span class="string">'Separator'</span>,        <span class="string">'on'</span>);
+    Eje1            = axes(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>,<span class="keyword">...</span>
+        [30/100,0,40/100,1/2],<span class="keyword">...</span>
+        <span class="string">'Box'</span>,<span class="string">'on'</span>,<span class="string">'Layer'</span>,<span class="string">'bottom'</span>,<span class="keyword">...</span>
+        <span class="string">'XTick'</span>,[],<span class="string">'YTick'</span>,[]);
+    Eje2            = axes(<span class="string">'Parent'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="keyword">...</span>
+        <span class="string">'OuterPosition'</span>,<span class="keyword">...</span>
+        [30/100,1/2,40/100,1/2],<span class="keyword">...</span>
+        <span class="string">'Box'</span>,<span class="string">'on'</span>,<span class="string">'Layer'</span>,<span class="string">'bottom'</span>,<span class="keyword">...</span>
+        <span class="string">'XTick'</span>,[],<span class="string">'YTick'</span>,[]);
+    handles = struct(<span class="string">'Tabla_Entrada'</span>,Tabla_Entrada,<span class="keyword">...</span>
+        <span class="string">'Tabla_Salida'</span>,Tabla_Salida,<span class="string">'texto1'</span>,texto1,<span class="keyword">...</span>
+        <span class="string">'texto2'</span>,texto2,<span class="string">'Panel2'</span>,Panel2,<span class="keyword">...</span>
+        <span class="string">'Ventana'</span>,Ventana,<span class="string">'Botones'</span>,Botones,<span class="keyword">...</span>
+        <span class="string">'Boton_1'</span>,Boton_1,<span class="string">'Boton_2'</span>,Boton_2,<span class="keyword">...</span>
+        <span class="string">'Boton_3'</span>,Boton_3,<span class="string">'BotonDeReporte'</span>,BotonDeReporte,<span class="keyword">...</span>
+        <span class="string">'Herramientas'</span>,Herramientas,<span class="keyword">...</span>
+        <span class="string">'BotonDeGuardar'</span>,BotonDeGuardar,<span class="keyword">...</span>
+        <span class="string">'BotonDeAbrir'</span>,BotonDeAbrir,<span class="keyword">...</span>
+        <span class="string">'Eje1'</span>,Eje1,<span class="string">'Eje2'</span>,Eje2);
+    handles.BotonCalcular = BotonCalcular;
+    set(Tabla_Entrada,<span class="string">'Data'</span>,DatosIniciales);
+    set(Tabla_Salida,<span class="string">'Data'</span>,DatosDeRespuesta);
+    set(BotonCalcular,<span class="keyword">...</span>
+        <span class="string">'Callback'</span>,{@funcionDeCalcular,handles});
+    set(Tabla_Entrada,<span class="keyword">...</span>
+        <span class="string">'CellEditCallback'</span>,{@funcionDeCalcular,handles});
+    set(Botones,<span class="keyword">...</span>
+        <span class="string">'SelectedObject'</span>,[],<span class="string">'SelectionChangeFcn'</span>,<span class="keyword">...</span>
+        {@CambioDeBoton,handles});
+    set(BotonDeReporte,<span class="string">'ClickedCallback'</span>,<span class="keyword">...</span>
+        {@GenerarReporte,handles});
+    set(BotonDeGuardar,<span class="string">'ClickedCallback'</span>,<span class="keyword">...</span>
+        {@GenerarCSV,handles});
+    set(BotonDeAbrir,<span class="string">'ClickedCallback'</span>,<span class="keyword">...</span>
+        {@AbrirCSV,handles});
+    funcionDeCalcular(Tabla_Entrada,{},handles);
+<span class="keyword">else</span>
+    figure(Ventana);
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> funcionDeCalcular(~,~,handles,varargin)
+Datos_entrada   = get(handles.Tabla_Entrada,<span class="string">'Data'</span>);
+Datos           = <span class="keyword">...</span>
+    Datos_entrada(cellfun(@isvarname,Datos_entrada(:,1)),:);
+Datos_no_numericos              = <span class="keyword">...</span>
+    cellfun(@(x)~isnumeric(x),Datos(:,2));
+<span class="keyword">try</span>
+Datos(Datos_no_numericos,2)     = <span class="keyword">...</span>
+    cellfun(@(x){eval(x)},Datos(Datos_no_numericos,2));
+<span class="keyword">catch</span> e
+    msgbox(e.message);
+<span class="keyword">end</span>
+Datos_s         = cell2struct(Datos(:,2),Datos(:,1),1);
+Respuesta       = get(handles.Tabla_Salida,<span class="string">'Data'</span>);
+
+Ka              = Datos_s.Ka;
+Kw              = Datos_s.Kw;
+C_HA0           = Datos_s.C_HA0;
+C_NaA0          = Datos_s.C_NaA0;
+C_HAfuerte0     = Datos_s.C_HAfuerte0;
+C_LiBfuerte0    = Datos_s.C_LiBfuerte0;
+V0              = Datos_s.V0;
+Vr              = Datos_s.Vr;
+C_HAinit        = C_HA0*V0/Vr;
+C_Ainit         = C_NaA0*V0/Vr;
+C_Na            = C_NaA0*V0/Vr; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_Bfuerte       = C_LiBfuerte0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_LiBfuerte     = 0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_Li            = C_LiBfuerte0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_HAfuerte      = 0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_Afuerte       = C_HAfuerte0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+pKa             = -log10(Ka); <span class="comment">%#ok&lt;NASGU&gt;</span>
+pKb             = -log10(Kw/Ka); <span class="comment">%#ok&lt;NASGU&gt;</span>
+
+<span class="comment">% Datos_entrada{...</span>
+<span class="comment">%     strcmp(Datos_entrada(:,1),...</span>
+<span class="comment">%     'C_HAinicial'),2}...</span>
+<span class="comment">%     = C_HAinit;</span>
+
+
+<span class="comment">% Polinomio C(1)*X^N + ... + C(N)*X + C(N+1) = 0</span>
+<span class="comment">% Se representa con el vector C = [C(1),C(2),...,C(N)];</span>
+Coefs_Polinomio       = <span class="keyword">...</span>
+    [<span class="keyword">...</span>
+    +1,<span class="keyword">...</span>
+    +(1+1/Ka*V0/Vr*(C_NaA0-(C_HAfuerte0-C_LiBfuerte0))),<span class="keyword">...</span>
+    -(Kw/Ka^2+1/Ka*V0/Vr*(C_HA0+(C_HAfuerte0-C_LiBfuerte0))),<span class="keyword">...</span>
+    -Kw/Ka^2
+    ];
+
+<span class="comment">% Discriminante DELTA = 18 abcd - 4b^3d + b^2c^2 -4ac^3 -27a^2d^2</span>
+discriminante   = <span class="keyword">...</span>
+    +18*prod(Coefs_Polinomio(1:4))+<span class="keyword">...</span>
+    -4*Coefs_Polinomio(2)^3*Coefs_Polinomio(4)+<span class="keyword">...</span>
+    +Coefs_Polinomio(2)^2*Coefs_Polinomio(3)^2+<span class="keyword">...</span>
+    -4*Coefs_Polinomio(1)*Coefs_Polinomio(3)^3+<span class="keyword">...</span>
+    -27*Coefs_Polinomio(1)^2*Coefs_Polinomio(4)^2;
+
+<span class="keyword">if</span> ~any(isnan(Coefs_Polinomio))
+    raices          = roots(Coefs_Polinomio);
+<span class="keyword">else</span>
+    raices          = NaN;
+<span class="keyword">end</span>
+
+C_H3O           = raices*Ka;
+C_OH            = Kw./C_H3O;
+C_HA            = <span class="keyword">...</span>
+    + V0/Vr*(C_HA0+(C_HAfuerte0-C_LiBfuerte0)) +  <span class="keyword">...</span>
+    - (C_H3O - C_OH);
+C_A             = <span class="keyword">...</span>
+    + V0/Vr*(C_NaA0-(C_HAfuerte0-C_LiBfuerte0)) +  <span class="keyword">...</span>
+    + (C_H3O - C_OH);
+pH              = -log10(C_H3O);
+pOH             = -log10(C_OH); <span class="comment">%#ok&lt;NASGU&gt;</span>
+
+diferencias     = <span class="keyword">...</span><span class="comment">.</span>
+    [(C_HA - C_HAinit)';(C_A - C_Ainit)']';
+
+sonPosit        = C_H3O &gt; 0;
+normas          = NaN*zeros(size(diferencias,1),1);
+sonreales       = NaN*zeros(size(diferencias,1),1);
+
+<span class="keyword">for</span> i=1:size(diferencias,1)
+    normas(i)       = norm(diferencias(i,:));
+    sonreales(i)    = isreal(C_H3O(i,:));
+<span class="keyword">end</span>
+
+<span class="keyword">if</span> discriminante &gt; 0
+    <span class="comment">% 3 raices reales distintas</span>
+    <span class="comment">% (X-x1_R)(X-x2_R)(X-x3_R) = 0</span>
+    <span class="comment">%raizSeleccionada   = find(normas==min(normas) &amp; sonPosit);</span>
+    raizSeleccionada   = find( sonPosit );
+<span class="keyword">elseif</span> discriminante == 0
+    <span class="comment">% 3 raices reales , dos de ellas de multiplicidad (2)</span>
+    <span class="comment">% (X-x1_R)^2(X-x3_R) = 0</span>
+    raizSeleccionada   = find( sonPosit );
+<span class="keyword">elseif</span> discriminante &lt; 0
+    <span class="comment">% 2 raices complejas conjugadas y 1 ra&iacute;z real</span>
+    <span class="comment">% (X-x1_C)(X-x1_C_conj)(X-x3_R) = 0</span>
+    raizSeleccionada   = find( sonreales );
+<span class="keyword">end</span>
+
+<span class="keyword">if</span>      size(raizSeleccionada,1) &gt; 1
+    raizSeleccionada = raizSeleccionada(1);
+<span class="keyword">elseif</span>  size(raizSeleccionada,1) &lt; 1
+    raizSeleccionada = 2;
+<span class="keyword">end</span>
+
+<span class="keyword">if</span> size(varargin,1) &gt; 0 &amp;&amp; <span class="keyword">...</span>
+    strcmp(varargin{1},<span class="string">'indiceDepHImpuesto'</span>)
+    raizSeleccionada = varargin{2};
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=1:size(Respuesta,1)
+    <span class="keyword">if</span> exist(Respuesta{i,1},<span class="string">'var'</span>)
+        Respuesta{i,2}   = <span class="keyword">...</span>
+            eval(Respuesta{i,1});
+        <span class="keyword">if</span> ~isscalar(Respuesta{i,2})
+            Respuesta{i,2}   = <span class="keyword">...</span>
+                eval([Respuesta{i,1},<span class="keyword">...</span>
+                <span class="string">'('</span>,num2str(raizSeleccionada),<span class="string">')'</span>]);
+        <span class="keyword">elseif</span> ~isscalar(Respuesta{i,2})
+            Respuesta{i,2}   = <span class="keyword">...</span>
+                num2str(eval(Respuesta{i,1}));
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+pH_Barrido      = 0:(14/80):14;
+C_H3O_Barrido   = 10.^(-pH_Barrido);
+alpha_0         = C_H3O_Barrido./(C_H3O_Barrido+Ka);
+alpha_1         = Ka./(C_H3O_Barrido+Ka);
+BETA            = <span class="keyword">...</span>
+    log(10)*(<span class="keyword">...</span>
+    Kw./C_H3O_Barrido+C_H3O_Barrido <span class="keyword">...</span>
+    +(C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido./(Ka+C_H3O_Barrido).^2 <span class="keyword">...</span>
+    );
+
+plot(handles.Eje1,<span class="keyword">...</span>
+    pH_Barrido,alpha_0,<span class="string">'-'</span>,<span class="keyword">...</span>
+    pH_Barrido,alpha_1,<span class="string">'--'</span>);
+legend(handles.Eje1,<span class="string">'\alpha_0'</span>,<span class="string">'\alpha_1'</span>);
+xlabel(handles.Eje1,<span class="string">'pH'</span>);
+
+plot(handles.Eje2,<span class="keyword">...</span>
+    pH_Barrido,BETA,<span class="string">'-'</span>)
+legend(handles.Eje2,<span class="string">'\beta'</span>);
+xlabel(handles.Eje2,<span class="string">'pH'</span>);
+
+cruce_pH        = -log10(Ka);
+cruce_alpha_0   = interp1(pH_Barrido,alpha_0,cruce_pH);
+
+puntoMedioX     = mean(get(handles.Eje1,<span class="string">'XLim'</span>));
+posicionEnX     = cruce_pH;
+posicionDeNota  = [cruce_pH,cruce_alpha_0];
+
+<span class="keyword">if</span> posicionEnX &gt;= puntoMedioX
+    text(<span class="string">'Parent'</span>,handles.Eje1,<span class="string">'Position'</span>,posicionDeNota,<span class="keyword">...</span>
+        <span class="string">'String'</span>,[<span class="string">'pH=pKa'</span>,<span class="keyword">...</span>
+        mat2str(posicionDeNota',4),<span class="keyword">...</span>
+        <span class="string">'\rightarrow\bullet'</span>,],<span class="string">'Fontweight'</span>,<span class="string">'bold'</span>,<span class="keyword">...</span>
+        <span class="string">'HorizontalAlignment'</span>,<span class="string">'right'</span>);
+<span class="keyword">else</span>
+    text(<span class="string">'Parent'</span>,handles.Eje1,<span class="string">'Position'</span>,posicionDeNota,<span class="keyword">...</span>
+        <span class="string">'String'</span>,[<span class="string">'\bullet\leftarrow'</span>,<span class="keyword">...</span>
+        mat2str(posicionDeNota',4),<span class="keyword">...</span>
+        <span class="string">', \alpha_0=\alpha_1'</span>],<span class="string">'Fontweight'</span>,<span class="string">'bold'</span>);
+<span class="keyword">end</span>
+
+<span class="keyword">if</span> isreal(pH(raizSeleccionada))
+    puntoMedioX     = mean(get(handles.Eje2,<span class="string">'XLim'</span>));
+    posicionEnX     = pH(raizSeleccionada);
+    posicionDeNota  = <span class="keyword">...</span>
+        [pH(raizSeleccionada),<span class="keyword">...</span>
+        interp1(pH_Barrido,BETA,<span class="keyword">...</span>
+        pH(raizSeleccionada),<span class="string">'nearest'</span>,<span class="string">'extrap'</span>)];
+    <span class="keyword">if</span> posicionEnX &gt;= puntoMedioX
+        text(<span class="string">'Parent'</span>,handles.Eje2,<span class="keyword">...</span>
+            <span class="string">'Position'</span>,posicionDeNota,<span class="keyword">...</span>
+            <span class="string">'String'</span>,[<span class="string">'pH= '</span>,num2str(pH(raizSeleccionada)),<span class="keyword">...</span>
+            <span class="string">'\rightarrow\bullet'</span>,],<span class="string">'Fontweight'</span>,<span class="string">'bold'</span>,<span class="keyword">...</span>
+            <span class="string">'HorizontalAlignment'</span>,<span class="string">'right'</span>);
+    <span class="keyword">else</span>
+        text(<span class="string">'Parent'</span>,handles.Eje2,<span class="keyword">...</span>
+            <span class="string">'Position'</span>,posicionDeNota,<span class="keyword">...</span>
+            <span class="string">'String'</span>,[<span class="string">'\bullet\leftarrow'</span>,<span class="keyword">...</span>
+            <span class="string">'pH= '</span>,num2str(pH(raizSeleccionada))],<span class="keyword">...</span>
+            <span class="string">'Fontweight'</span>,<span class="string">'bold'</span>);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=1:size(Datos_entrada,1)
+    <span class="keyword">if</span> ~isnumeric(Datos_entrada{i,2}) &amp;&amp;<span class="keyword">...</span>
+            ~strcmp(Datos_entrada{i,2},<span class="string">''</span>)
+        Datos_entrada{i,2} = eval(Datos_entrada{i,2});
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+Botones_Matriz      = get(handles.Botones,<span class="string">'Children'</span>);
+Leyendas            = cell(3,1);
+
+<span class="keyword">for</span> i=1:3
+    Leyendas{i}     = <span class="keyword">...</span>
+        [<span class="string">'pH='</span>,num2str(pH(i),<span class="string">'%1.2f'</span>),<span class="keyword">...</span>
+        <span class="string">' ||DELTA|| '</span>,num2str(normas(i),<span class="string">'%1.2e'</span>),<span class="keyword">...</span>
+        <span class="string">'gmol/L'</span>];
+    set(Botones_Matriz(i),<span class="string">'String'</span>,<span class="keyword">...</span>
+        Leyendas{i},<span class="string">'TooltipString'</span>,<span class="keyword">...</span>
+        Leyendas{i}, <span class="string">'UserData'</span>,i);
+<span class="keyword">end</span>
+
+set(Botones_Matriz,<span class="string">'Enable'</span>,<span class="string">'off'</span>);
+set(handles.Botones,<span class="string">'SelectedObject'</span>,<span class="keyword">...</span>
+    Botones_Matriz(raizSeleccionada));
+
+set(Botones_Matriz,<span class="string">'Enable'</span>,<span class="string">'on'</span>);
+set(handles.Tabla_Salida,<span class="string">'Data'</span>,Respuesta);
+set(handles.Tabla_Entrada,<span class="string">'Data'</span>,Datos_entrada);
+
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> CambioDeBoton(hObject,eventData,handles,varargin)
+funcionDeCalcular(hObject,eventData,handles,<span class="keyword">...</span>
+    <span class="string">'indiceDepHImpuesto'</span>,get(get(handles.Botones,<span class="keyword">...</span>
+    <span class="string">'SelectedObject'</span>),<span class="string">'UserData'</span>));
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> GenerarReporte(~,~,~)
+publish(<span class="string">'bufferSolution.m'</span>,<span class="string">'format'</span>,<span class="string">'html'</span>,<span class="string">'evalCode'</span>,true);
+web(<span class="string">'html/bufferSolution.html'</span>);
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> AbrirCSV(hObject,eventData,handles)
+[success,~] = mkdir(<span class="string">'DATA'</span>);
+<span class="keyword">if</span> success
+    [FileName,PathName,~]=uigetfile(<span class="string">'./DATA/*.mat;*.xlsx;*.xls;*.csv'</span>);
+<span class="keyword">else</span>
+    [FileName,PathName,~]=uigetfile(<span class="string">'./*.mat;*.xlsx;*.xls;*.csv'</span>);
+<span class="keyword">end</span>
+Datos={};
+<span class="keyword">try</span>
+    <span class="keyword">if</span> FileName~=0
+        extension=regexp(FileName,<span class="string">'.mat$|.xls$|.xlsx$|.csv$'</span>,<span class="string">'match'</span>);
+        <span class="keyword">if</span> strcmp(<span class="string">'.mat'</span>,extension)
+            load([PathName filesep FileName],<span class="string">'Datos'</span>);
+        <span class="keyword">elseif</span> strcmp(<span class="string">'.csv'</span>,extension)
+            [~,Datos]=cargarCSV([PathName FileName]);
+        <span class="keyword">elseif</span> strcmp(extension,<span class="string">'.xls'</span>) ||<span class="keyword">...</span>
+                strcmp(extension,<span class="string">'.xlsx'</span>)
+            [~,~,Datos]=xlsread([PathName FileName]);
+            Datos=quitarNaN(Datos);
+        <span class="keyword">end</span>
+        <span class="comment">%</span>
+        <span class="comment">% Poner estos valores en la tabla uitable1 (a la izq.)}</span>
+        set(handles.Tabla_Entrada,<span class="string">'Data'</span>,Datos);
+        <span class="comment">%</span>
+        <span class="comment">% Correr el c&oacute;digo para actualizar ( o generar en dado caso) la gr&aacute;fica</span>
+        <span class="comment">% solicitada.</span>
+        funcionDeCalcular(hObject,eventData,handles);
+    <span class="keyword">end</span>
+<span class="keyword">catch</span> exception
+    msgbox([exception.identifier,<span class="string">'. '</span>,<span class="keyword">...</span>
+        exception.message],<span class="string">'ERROR'</span>,<span class="string">'error'</span>);
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> GenerarCSV(~,~,handles)
+Datos = get(handles.Tabla_Entrada,<span class="string">'Data'</span>);
+[success,~] = mkdir(<span class="string">'DATA'</span>);
+success = success &amp;&amp; fileattrib(<span class="string">'./DATA'</span>,<span class="string">'+w'</span>);
+<span class="keyword">try</span>
+    actxserver(<span class="string">'Excel.Application'</span>);
+    ExcelInstalled = true;
+<span class="keyword">catch</span> exception <span class="comment">%#ok&lt;NASGU&gt;</span>
+    ExcelInstalled = false;
+<span class="keyword">end</span>
+<span class="keyword">if</span> ExcelInstalled
+    defaultExtension=<span class="string">'.csv'</span>;
+<span class="keyword">elseif</span> ~ExcelInstalled
+    defaultExtension=<span class="string">'.csv'</span>;
+<span class="keyword">end</span>
+<span class="keyword">if</span> success
+    [FileName,PathName,~]=uiputfile({<span class="string">'*.mat'</span>;<span class="string">'*.xls'</span>;<span class="string">'*.csv'</span>},<span class="keyword">...</span>
+        <span class="string">'Guardar estado de variables'</span>,[<span class="string">'./DATA/*'</span>,defaultExtension]);
+<span class="keyword">else</span>
+    [FileName,PathName,~]=uiputfile({<span class="string">'*.mat'</span>;<span class="string">'*.xls'</span>;<span class="string">'*.csv'</span>},<span class="keyword">...</span>
+        <span class="string">'Guardar estado de variables'</span>,[<span class="string">'./*'</span>,defaultExtension]);
+<span class="keyword">end</span>
+<span class="keyword">if</span> FileName~=0
+    extension=regexp(FileName,<span class="string">'.mat$|.xls$|.xlsx$|.csv$'</span>,<span class="string">'match'</span>);
+    <span class="keyword">if</span> isempty(extension)
+        extension=<span class="string">'.xls'</span>;
+        FileName=[FileName,extension];
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> strcmp(<span class="string">'.mat'</span>,extension)
+        save([PathName,FileName],nombreDeVariable(Datos));
+    <span class="keyword">elseif</span> strcmp(extension,<span class="string">'.xls'</span>) ||<span class="keyword">...</span>
+            strcmp(extension,<span class="string">'.xlsx'</span>)
+        <span class="keyword">try</span>
+        xlswrite([PathName,FileName],<span class="keyword">...</span>
+            get(handles.uitable1,<span class="string">'Data'</span>));
+        <span class="keyword">catch</span> exception <span class="comment">%#ok&lt;NASGU&gt;</span>
+            warning(<span class="string">'MATLAB:xlswrite:NoCOMServer'</span>,<span class="keyword">...</span>
+            [<span class="string">'Could not start Excel server for export.\n'</span> <span class="keyword">...</span>
+            <span class="string">'XLSWRITE will attempt to write file in CSV format.'</span>]);
+            guardarCSV([PathName,FileName],<span class="keyword">...</span>
+            get(handles.Tabla_Entrada,<span class="string">'Data'</span>));
+        <span class="keyword">end</span>
+    <span class="keyword">elseif</span> strcmp(extension,<span class="string">'.csv'</span>)
+        guardarCSV([PathName,FileName],<span class="keyword">...</span>
+            get(handles.Tabla_Entrada,<span class="string">'Data'</span>));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="bufferSolution_01.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% BUFFER SOLUTIONS
+% Calcula disoluciones 'buffer' / tampón, basado en el balance
+% de materia y equilibrios ácido - base.
+%% Esquema
+% 
+% <<../utils/diagrama_1.png>>
+% 
+%% Reacciones
+% _1.- Adición de Base Fuerte LiB y / o Ácido Fuerte HAf_
+% $\begin{array}{ccccccc|cc} 
+%  & & LiB   & {\bf \longrightarrow \atop \leftarrow} &
+% Li^{(+)} & + & B^{(-)} & 
+% Kc_I = C_{Lieq^{(+)}} \times C_{Beq^{(-)}}  
+%      & \rightarrow \infty \\
+% B^{(-)} & + & H_2O   & {\bf \longrightarrow \atop \leftarrow} &
+% HB &  + & OH^{(-)}  & 
+% Kb_I = C_{OHeq^{(-)}} \times C_{HBeq} / 
+%      C_{Beq^{(-)}}  &  \rightarrow \infty \\
+% HAf & + & H_2O   & {\longrightarrow \atop \leftarrow} &
+% H_3O^{(+)} & + & Af^{(-)} & 
+% Ka_I = C_{H_3Oeq^{(+)}} \times C_{Afeq^{(-)}} / 
+%      C_{HAfeq}  & \rightarrow \infty \\
+%    & 2 & H_2O & {\rightarrow \atop \leftarrow} &
+% H_3O^{(+)} & + &  OH^{(-)} & 
+% Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
+%      10^{-14} & = K_{c3} \times C_{H_2Oeq}^2 \\
+% \end{array}$
+% _2.- Adición de tampón / buffer HA + NaA_
+% $\begin{array}{ccccccc|cc} 
+%  & & NaA   & {\bf \longrightarrow \atop \leftarrow} &
+% Na^{(+)} & + & A^{(-)} & 
+% Kc_{II} = C_{Naeq^{(+)}} \times C_{Aeq^{(-)}}  
+%      & \rightarrow \infty \\
+% HA & + & H_2O   & {\rightarrow \atop \leftarrow} &
+% H_3O^{(+)} & + & A^{(-)} & 
+% Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} / 
+%      C_{HAeq}  & = K_{c1} \times C_{H_2Oeq} \\
+% A^{(-)} & + & H_2O   & {\rightarrow \atop \leftarrow} &
+% HA &  + & OH^{(-)}  & 
+% Kb = C_{OHeq^{(-)}} \times C_{HAeq} / 
+%      C_{Aeq^{(-)}}  & = K_{c2} \times C_{H_2Oeq} \\
+%    & 2 & H_2O & {\rightarrow \atop \leftarrow} &
+% H_3O^{(+)} & + &  OH^{(-)} & 
+% Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
+%      10^{-14} & = K_{c3} \times C_{H_2Oeq}^2 \\
+% \end{array}$
+%% Condiciones de alimentación
+% * Agregar base fuerte $V_0 C_{LiB_0}$ y ácido fuerte 
+%   $V_0 C_{HAf_0}$.
+% * Agregar buffer en forma de ácido $V_0 C_{HA_0}$ + sal 
+%   $V_0 C_{NaA_0}$.
+% La sal se disocia
+% completamente, el ácido de acuerdo con el equilibrio ácido-base.
+% * Parámetros:
+%
+% $Vr$
+%
+% $V_0 C_{HA_0}$
+%
+% $V_0 C_{NaA_0}$
+%
+% $V_0 C_{LiB_0}$
+%
+% $V_0 C_{HAf_0}$
+%
+%
+%% Ecuaciones
+% Por balance de materia + carga + equilibrios:
+%
+% Resulta un sistema algebráico no lineal, 4 ecuaciones 
+% *independientes* y 4 variables.
+% $\begin{array}{cccccccccc} 
+% {V_0 \over Vr} \times \left({C_{HA_0}} + \left( C_{HAf_0}
+% - C_{LiB_0} \right) \right) & = & + & C_{HAeq} & + & 
+% 0 & + & C_{H_3Oeq^{(+)}} & - & C_{OHeq^{(-)}}
+% \\
+% {V_0 \over Vr} \times \left({C_{NaA_0}} - \left( C_{HAf_0}
+% - C_{LiB_0} \right) \right) & = & + & 0 & + & 
+% C_{Aeq^{(-)}} & - & C_{H_3Oeq^{(+)}} & + & C_{OHeq^{(-)}}
+% \\
+% 0 & = & + & Ka \times C_{HAeq} & - & 
+% C_{Aeq^{(-)}} & \times & C_{H_3Oeq^{(+)}} & + & 0
+% \\
+% Kw & = & + & 0 & + & 0 & 
+% + & C_{H_3Oeq^{(+)}} & \times & 
+% C_{OHeq^{(-)}} \\
+% \end{array}$
+%% Solución
+% Reducción a 1 ecuación polinomial de 3er orden.
+% 
+% $\begin{array}{cccccc} 
+% 0 & = & + & 
+% 1 & \times & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 \\
+%   &   & + & \left( 1+{{V_0 / Vr} \over Ka} \times
+% \left(  {C_{NaA_0}} - \left( C_{HAf_0} 
+% - C_{LiB_0} \right)  \right) \right) & \times
+% & \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^2 \\
+%   &   & - & \left( {Kw \over Ka^2} + 
+% {{V_0 / Vr} \over Ka} \times 
+% \left(  {C_{NaA_0}} - \left( C_{HAf_0} 
+% - C_{LiB_0} \right)  \right) \right) & \times &
+% \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^1 \\
+%   &   & - & {Kw \over Ka^2 } & \times & 
+% \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^0 \\
+% \end{array}$
+%
+% * Fijar alimentación.
+% * Resolver ecuación cúbica para 
+% $C_{H_3Oeq^{(+)}}$ , calcular pH.
+% * Calcular $C_{OHeq^{(-)}}$ por ec. 4.
+% * Calcular $C_{Aeq^{(-)}}$ y $C_{HAeq}$ por ecs. 1,2.
+% * Respuesta:
+% 
+% $C_{H_3Oeq^{(+)}}$, $pH$
+%
+% $C_{OHeq^{(-)}}$
+% 
+% $C_{Aeq^{(-)}}$
+%
+% $C_{HAeq}$
+%
+% $C_{Na^{(+)}}$
+%
+% $C_{Li^{(+)}}$
+%
+% $C_{Af^{(-)}}$
+function bufferSolution()
+% Generar ventana
+screenSize  = get(0,'MonitorPositions');
+Ventana     = findobj('Tag','BufferSolutionGui');
+pageicon    = imread(['utils',filesep,'help_ug.png'],...
+    'BackgroundColor',[1,1,1]);
+saveicon    = imread(['utils',filesep,'icono_guardar.png']);
+openicon    = imread(['utils',filesep,'icono_abrir.png']);
+if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
+    Ventana = figure('Menu','none','Toolbar','figure',...
+        'Color',[255,255,255]/255,'Name','Buffer Solution',...
+        'WindowStyle','normal','NumberTitle','off','Resize','off',...
+        'Units','pixels',...
+        'Position',[screenSize(3:4)/2-[780,400]/2,780,400],...
+        'Tag','BufferSolutionGui');
+    Panel2          = uipanel('Parent',Ventana,...
+        'Title','Buffer Solution',...
+        'BackgroundColor',[255,255,255]/255);
+    Tabla_Entrada   = uitable('Parent',Panel2,...
+        'Units','normalized',...
+        'Position',[0,1/4,30/100,3/4-1/8],...
+        'RowName',{},...
+        'ColumnName',{'VARIABLE','VALOR','UNIDADES'},...
+        'ColumnWidth',{  80 'auto' 'auto' },...
+        'ColumnEditable',[ false true false ]);
+    Tabla_Salida   = uitable('Parent',Panel2,...
+        'Units','normalized',...
+        'Position',[1-30/100,1/4,30/100,3/4-1/8],...
+        'RowName',{},...
+        'ColumnName',{'VARIABLE','VALOR','UNIDADES'},...
+        'ColumnWidth',{  80 'auto' 'auto' },...
+        'ColumnEditable',[ false false false ]);
+    texto1  = uicontrol('Parent',Panel2,...
+        'Units','normalized',...
+        'Style','text',...
+        'String','PARÁMETROS',...
+        'BackgroundColor','white',...
+        'Position',[30/100/2-1/6/2,1-1/8+1/4/6,1/6,1/4/6]);
+    texto2  = uicontrol('Parent',Panel2,...
+        'Units','normalized',...
+        'Style','text',...
+        'String','RESPUESTA',...
+        'BackgroundColor','white',...
+        'Position',[1-30/100+1/6/2,1-1/8+1/4/6,1/6,1/4/6]);
+    Botones = uibuttongroup('Parent',Panel2,...
+        'Units','normalized',...
+        'Title','RAICES',...
+        'BackgroundColor','white',...
+        'Position',[1-30/100,1/4/10,30/100,9/4/10]);
+    Boton_1 = uicontrol('Parent',Botones,...
+        'Units','normalized',...
+        'Style','radiobutton',...
+        'String','pH=',...
+        'BackgroundColor','white',...
+        'Position',[1/22,1/11,1-1/22,3/11],...
+        'Enable','off');
+    Boton_2 = uicontrol('Parent',Botones,...
+        'Units','normalized',...
+        'Style','radiobutton',...
+        'String','pH=',...
+        'BackgroundColor','white',...
+        'Position',[1/22,4/11,1-1/22,3/11],...
+        'Enable','off');
+    Boton_3 = uicontrol('Parent',Botones,...
+        'Units','normalized',...
+        'Style','radiobutton',...
+        'String','pH=',...
+        'BackgroundColor','white',...
+        'Position',[1/22,7/11,1-1/22,3/11],...
+        'Enable','off');
+    DatosIniciales      =    ...
+        {...
+        'COND. IN./ALIM.' ''          '';...
+        'C_HA0'         0.3         'gmol/L';...
+        'C_NaA0'        0.2         'gmol/L';...
+        'C_HAfuerte0'   0           'gmol/L';...
+        'C_LiBfuerte0'  0           'gmol/L';...       
+        'Ka'            5.70*10^-10 '';...
+        'Kw'            10^-14      '';...
+        'MEDIO REAC.'   ''          '';...
+        'V0'            0.2         'L';...
+        'Vr'            0.2         'L';...
+        };
+    DatosDeRespuesta      =    ...
+        {...                
+        'pH'            []      '';...
+        'pOH'           []      '';...
+        'pKa'           []      '';...
+        'pKb'           []      '';...
+        'C_HA'          []      'gmol/L';...
+        'C_A'           []      'gmol/L';...
+        'C_Na'          []      'gmol/L';...        
+        'C_H3O'         []      'gmol/L';...
+        'C_OH'          []      'gmol/L';...
+        'C_Li'          []      'gmol/L';...
+        'C_Afuerte'     []      'gmol/L';...
+        'C_Bfuerte'     []      'gmol/L';...
+        'C_HAfuerte'    []      'gmol/L';...
+        'C_LiBfuerte'   []      'gmol/L';...
+        };
+    BotonCalcular = uicontrol('Parent',Panel2,...
+        'Units','normalized',...
+        'Style','pushbutton',...
+        'String','CALCULAR',...
+        'Position',[30/100/2-1/6/2,1/4/2-1/4/3/2,1/6,1/4/3]);
+    Herramientas    = findall(Ventana,'Type','uitoolbar');
+    BotonesEnBarra  = ...
+        [...
+        get(findall(Ventana,'Type','uipushtool'),'ToolTipString');...
+        get(findall(Ventana,'Type','uitoggletool'),'ToolTipString');
+        ];
+    for i=1:size(BotonesEnBarra,1)
+        if ...
+                ~strcmp(BotonesEnBarra{i},'Insert Legend') && ...
+                ~strcmp(BotonesEnBarra{i},'Data Cursor') && ...
+                ~strcmp(BotonesEnBarra{i},'Pan') && ...
+                ~strcmp(BotonesEnBarra{i},'Zoom Out') && ...
+                ~strcmp(BotonesEnBarra{i},'Zoom In')
+            set(findall(Herramientas,'ToolTipString',...
+                BotonesEnBarra{i}),'Visible','Off');
+        end
+    end    
+    BotonDeGuardar  = uipushtool(Herramientas,...
+        'CData',            saveicon,...        
+        'Tag',              'uipushtool2',...
+        'TooltipString',    'Guardar CSV',...
+        'Separator',        'on');
+    BotonDeAbrir    = uipushtool(Herramientas,...
+        'CData',            openicon,...        
+        'Tag',              'uipushtool3',...
+        'TooltipString',    'Abrir CSV');
+    BotonDeReporte  = uipushtool(Herramientas,...
+        'CData',            pageicon,...        
+        'Tag',              'uipushtool1',...
+        'TooltipString',    'Ver procedimiento de solución',...
+        'Separator',        'on');
+    Eje1            = axes('Parent',Panel2,...
+        'Units','normalized',...
+        'OuterPosition',...
+        [30/100,0,40/100,1/2],...
+        'Box','on','Layer','bottom',...
+        'XTick',[],'YTick',[]);
+    Eje2            = axes('Parent',Panel2,...
+        'Units','normalized',...
+        'OuterPosition',...
+        [30/100,1/2,40/100,1/2],...
+        'Box','on','Layer','bottom',...
+        'XTick',[],'YTick',[]);
+    handles = struct('Tabla_Entrada',Tabla_Entrada,...
+        'Tabla_Salida',Tabla_Salida,'texto1',texto1,...
+        'texto2',texto2,'Panel2',Panel2,...
+        'Ventana',Ventana,'Botones',Botones,...
+        'Boton_1',Boton_1,'Boton_2',Boton_2,...
+        'Boton_3',Boton_3,'BotonDeReporte',BotonDeReporte,...
+        'Herramientas',Herramientas,...
+        'BotonDeGuardar',BotonDeGuardar,...
+        'BotonDeAbrir',BotonDeAbrir,...
+        'Eje1',Eje1,'Eje2',Eje2);
+    handles.BotonCalcular = BotonCalcular;
+    set(Tabla_Entrada,'Data',DatosIniciales);
+    set(Tabla_Salida,'Data',DatosDeRespuesta);
+    set(BotonCalcular,...
+        'Callback',{@funcionDeCalcular,handles});
+    set(Tabla_Entrada,...
+        'CellEditCallback',{@funcionDeCalcular,handles});
+    set(Botones,...
+        'SelectedObject',[],'SelectionChangeFcn',...
+        {@CambioDeBoton,handles});
+    set(BotonDeReporte,'ClickedCallback',...
+        {@GenerarReporte,handles});
+    set(BotonDeGuardar,'ClickedCallback',...
+        {@GenerarCSV,handles});
+    set(BotonDeAbrir,'ClickedCallback',...
+        {@AbrirCSV,handles});
+    funcionDeCalcular(Tabla_Entrada,{},handles);
+else
+    figure(Ventana);
+end
+end
+
+function funcionDeCalcular(~,~,handles,varargin)
+Datos_entrada   = get(handles.Tabla_Entrada,'Data');
+Datos           = ...
+    Datos_entrada(cellfun(@isvarname,Datos_entrada(:,1)),:);
+Datos_no_numericos              = ...
+    cellfun(@(x)~isnumeric(x),Datos(:,2));
+try
+Datos(Datos_no_numericos,2)     = ...
+    cellfun(@(x){eval(x)},Datos(Datos_no_numericos,2));
+catch e
+    msgbox(e.message);
+end
+Datos_s         = cell2struct(Datos(:,2),Datos(:,1),1);
+Respuesta       = get(handles.Tabla_Salida,'Data');
+
+Ka              = Datos_s.Ka;
+Kw              = Datos_s.Kw;
+C_HA0           = Datos_s.C_HA0;
+C_NaA0          = Datos_s.C_NaA0;
+C_HAfuerte0     = Datos_s.C_HAfuerte0;
+C_LiBfuerte0    = Datos_s.C_LiBfuerte0;
+V0              = Datos_s.V0;
+Vr              = Datos_s.Vr;
+C_HAinit        = C_HA0*V0/Vr;
+C_Ainit         = C_NaA0*V0/Vr;
+C_Na            = C_NaA0*V0/Vr; %#ok<NASGU>
+C_Bfuerte       = C_LiBfuerte0; %#ok<NASGU>
+C_LiBfuerte     = 0; %#ok<NASGU>
+C_Li            = C_LiBfuerte0; %#ok<NASGU>
+C_HAfuerte      = 0; %#ok<NASGU>
+C_Afuerte       = C_HAfuerte0; %#ok<NASGU>
+pKa             = -log10(Ka); %#ok<NASGU>
+pKb             = -log10(Kw/Ka); %#ok<NASGU>
+
+% Datos_entrada{...
+%     strcmp(Datos_entrada(:,1),...
+%     'C_HAinicial'),2}...
+%     = C_HAinit;
+
+
+% Polinomio C(1)*X^N + ... + C(N)*X + C(N+1) = 0
+% Se representa con el vector C = [C(1),C(2),...,C(N)];
+Coefs_Polinomio       = ...
+    [...
+    +1,...
+    +(1+1/Ka*V0/Vr*(C_NaA0-(C_HAfuerte0-C_LiBfuerte0))),...
+    -(Kw/Ka^2+1/Ka*V0/Vr*(C_HA0+(C_HAfuerte0-C_LiBfuerte0))),...
+    -Kw/Ka^2
+    ];
+
+% Discriminante DELTA = 18 abcd - 4b^3d + b^2c^2 -4ac^3 -27a^2d^2
+discriminante   = ...
+    +18*prod(Coefs_Polinomio(1:4))+...
+    -4*Coefs_Polinomio(2)^3*Coefs_Polinomio(4)+...
+    +Coefs_Polinomio(2)^2*Coefs_Polinomio(3)^2+...
+    -4*Coefs_Polinomio(1)*Coefs_Polinomio(3)^3+...
+    -27*Coefs_Polinomio(1)^2*Coefs_Polinomio(4)^2;
+
+if ~any(isnan(Coefs_Polinomio))
+    raices          = roots(Coefs_Polinomio);   
+else
+    raices          = NaN;
+end
+
+C_H3O           = raices*Ka;
+C_OH            = Kw./C_H3O;
+C_HA            = ...
+    + V0/Vr*(C_HA0+(C_HAfuerte0-C_LiBfuerte0)) +  ...
+    - (C_H3O - C_OH);
+C_A             = ...
+    + V0/Vr*(C_NaA0-(C_HAfuerte0-C_LiBfuerte0)) +  ...
+    + (C_H3O - C_OH);
+pH              = -log10(C_H3O);
+pOH             = -log10(C_OH); %#ok<NASGU>
+
+diferencias     = ....
+    [(C_HA - C_HAinit)';(C_A - C_Ainit)']';
+
+sonPosit        = C_H3O > 0;
+normas          = NaN*zeros(size(diferencias,1),1);
+sonreales       = NaN*zeros(size(diferencias,1),1);
+
+for i=1:size(diferencias,1)
+    normas(i)       = norm(diferencias(i,:));
+    sonreales(i)    = isreal(C_H3O(i,:));
+end
+
+if discriminante > 0
+    % 3 raices reales distintas 
+    % (X-x1_R)(X-x2_R)(X-x3_R) = 0
+    %raizSeleccionada   = find(normas==min(normas) & sonPosit);
+    raizSeleccionada   = find( sonPosit );
+elseif discriminante == 0
+    % 3 raices reales , dos de ellas de multiplicidad (2)
+    % (X-x1_R)^2(X-x3_R) = 0
+    raizSeleccionada   = find( sonPosit );
+elseif discriminante < 0
+    % 2 raices complejas conjugadas y 1 raíz real
+    % (X-x1_C)(X-x1_C_conj)(X-x3_R) = 0
+    raizSeleccionada   = find( sonreales );
+end
+
+if      size(raizSeleccionada,1) > 1
+    raizSeleccionada = raizSeleccionada(1);
+elseif  size(raizSeleccionada,1) < 1
+    raizSeleccionada = 2;
+end
+
+if size(varargin,1) > 0 && ...
+    strcmp(varargin{1},'indiceDepHImpuesto')
+    raizSeleccionada = varargin{2};
+end
+
+for i=1:size(Respuesta,1)
+    if exist(Respuesta{i,1},'var')
+        Respuesta{i,2}   = ...
+            eval(Respuesta{i,1});
+        if ~isscalar(Respuesta{i,2})
+            Respuesta{i,2}   = ...
+                eval([Respuesta{i,1},...
+                '(',num2str(raizSeleccionada),')']);
+        elseif ~isscalar(Respuesta{i,2})
+            Respuesta{i,2}   = ...
+                num2str(eval(Respuesta{i,1}));
+        end
+    end
+end
+
+pH_Barrido      = 0:(14/80):14;
+C_H3O_Barrido   = 10.^(-pH_Barrido);
+alpha_0         = C_H3O_Barrido./(C_H3O_Barrido+Ka);
+alpha_1         = Ka./(C_H3O_Barrido+Ka);
+BETA            = ...
+    log(10)*(...
+    Kw./C_H3O_Barrido+C_H3O_Barrido ...
+    +(C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido./(Ka+C_H3O_Barrido).^2 ...
+    );
+
+plot(handles.Eje1,...
+    pH_Barrido,alpha_0,'-',...
+    pH_Barrido,alpha_1,'REPLACE_WITH_DASH_DASH');
+legend(handles.Eje1,'\alpha_0','\alpha_1');
+xlabel(handles.Eje1,'pH');
+
+plot(handles.Eje2,...
+    pH_Barrido,BETA,'-')
+legend(handles.Eje2,'\beta');
+xlabel(handles.Eje2,'pH');
+
+cruce_pH        = -log10(Ka);
+cruce_alpha_0   = interp1(pH_Barrido,alpha_0,cruce_pH);
+
+puntoMedioX     = mean(get(handles.Eje1,'XLim'));
+posicionEnX     = cruce_pH;
+posicionDeNota  = [cruce_pH,cruce_alpha_0];
+
+if posicionEnX >= puntoMedioX
+    text('Parent',handles.Eje1,'Position',posicionDeNota,...
+        'String',['pH=pKa',...
+        mat2str(posicionDeNota',4),...
+        '\rightarrow\bullet',],'Fontweight','bold',...
+        'HorizontalAlignment','right');
+else
+    text('Parent',handles.Eje1,'Position',posicionDeNota,...
+        'String',['\bullet\leftarrow',...
+        mat2str(posicionDeNota',4),...
+        ', \alpha_0=\alpha_1'],'Fontweight','bold');
+end
+
+if isreal(pH(raizSeleccionada))
+    puntoMedioX     = mean(get(handles.Eje2,'XLim'));
+    posicionEnX     = pH(raizSeleccionada);
+    posicionDeNota  = ...
+        [pH(raizSeleccionada),...
+        interp1(pH_Barrido,BETA,...
+        pH(raizSeleccionada),'nearest','extrap')];
+    if posicionEnX >= puntoMedioX
+        text('Parent',handles.Eje2,...
+            'Position',posicionDeNota,...
+            'String',['pH= ',num2str(pH(raizSeleccionada)),...
+            '\rightarrow\bullet',],'Fontweight','bold',...
+            'HorizontalAlignment','right');
+    else
+        text('Parent',handles.Eje2,...
+            'Position',posicionDeNota,...
+            'String',['\bullet\leftarrow',...
+            'pH= ',num2str(pH(raizSeleccionada))],...
+            'Fontweight','bold');
+    end
+end
+
+for i=1:size(Datos_entrada,1)
+    if ~isnumeric(Datos_entrada{i,2}) &&...
+            ~strcmp(Datos_entrada{i,2},'')
+        Datos_entrada{i,2} = eval(Datos_entrada{i,2});
+    end
+end
+
+Botones_Matriz      = get(handles.Botones,'Children');
+Leyendas            = cell(3,1);
+
+for i=1:3
+    Leyendas{i}     = ...
+        ['pH=',num2str(pH(i),'%1.2f'),...
+        ' ||DELTA|| ',num2str(normas(i),'%1.2e'),...
+        'gmol/L'];
+    set(Botones_Matriz(i),'String',...
+        Leyendas{i},'TooltipString',...
+        Leyendas{i}, 'UserData',i);
+end
+
+set(Botones_Matriz,'Enable','off');
+set(handles.Botones,'SelectedObject',...
+    Botones_Matriz(raizSeleccionada));
+
+set(Botones_Matriz,'Enable','on');
+set(handles.Tabla_Salida,'Data',Respuesta);
+set(handles.Tabla_Entrada,'Data',Datos_entrada);
+
+end
+
+function CambioDeBoton(hObject,eventData,handles,varargin)
+funcionDeCalcular(hObject,eventData,handles,...
+    'indiceDepHImpuesto',get(get(handles.Botones,...
+    'SelectedObject'),'UserData'));
+end
+
+function GenerarReporte(~,~,~)
+publish('bufferSolution.m','format','html','evalCode',true);
+web('html/bufferSolution.html');
+end
+
+function AbrirCSV(hObject,eventData,handles)
+[success,~] = mkdir('DATA');
+if success 
+    [FileName,PathName,~]=uigetfile('./DATA/*.mat;*.xlsx;*.xls;*.csv');    
+else
+    [FileName,PathName,~]=uigetfile('./*.mat;*.xlsx;*.xls;*.csv');
+end
+Datos={};
+try
+    if FileName~=0
+        extension=regexp(FileName,'.mat$|.xls$|.xlsx$|.csv$','match');        
+        if strcmp('.mat',extension)
+            load([PathName filesep FileName],'Datos');
+        elseif strcmp('.csv',extension)        
+            [~,Datos]=cargarCSV([PathName FileName]);
+        elseif strcmp(extension,'.xls') ||...
+                strcmp(extension,'.xlsx')
+            [~,~,Datos]=xlsread([PathName FileName]);
+            Datos=quitarNaN(Datos);
+        end
+        %
+        % Poner estos valores en la tabla uitable1 (a la izq.)}
+        set(handles.Tabla_Entrada,'Data',Datos); 
+        %
+        % Correr el código para actualizar ( o generar en dado caso) la gráfica
+        % solicitada.
+        funcionDeCalcular(hObject,eventData,handles);
+    end
+catch exception
+    msgbox([exception.identifier,'. ',...
+        exception.message],'ERROR','error');
+end
+end
+
+function GenerarCSV(~,~,handles)
+Datos = get(handles.Tabla_Entrada,'Data');
+[success,~] = mkdir('DATA');
+success = success && fileattrib('./DATA','+w');
+try
+    actxserver('Excel.Application');
+    ExcelInstalled = true;
+catch exception %#ok<NASGU>
+    ExcelInstalled = false;
+end
+if ExcelInstalled 
+    defaultExtension='.csv';
+elseif ~ExcelInstalled
+    defaultExtension='.csv';
+end
+if success
+    [FileName,PathName,~]=uiputfile({'*.mat';'*.xls';'*.csv'},...
+        'Guardar estado de variables',['./DATA/*',defaultExtension]);
+else
+    [FileName,PathName,~]=uiputfile({'*.mat';'*.xls';'*.csv'},...
+        'Guardar estado de variables',['./*',defaultExtension]);
+end
+if FileName~=0
+    extension=regexp(FileName,'.mat$|.xls$|.xlsx$|.csv$','match');
+    if isempty(extension)
+        extension='.xls';
+        FileName=[FileName,extension];
+    end
+    if strcmp('.mat',extension)
+        save([PathName,FileName],nombreDeVariable(Datos));
+    elseif strcmp(extension,'.xls') ||...
+            strcmp(extension,'.xlsx')
+        try
+        xlswrite([PathName,FileName],...
+            get(handles.uitable1,'Data'));    
+        catch exception %#ok<NASGU>
+            warning('MATLAB:xlswrite:NoCOMServer',...
+            ['Could not start Excel server for export.\n' ...
+            'XLSWRITE will attempt to write file in CSV format.']);
+            guardarCSV([PathName,FileName],...
+            get(handles.Tabla_Entrada,'Data'));
+        end
+    elseif strcmp(extension,'.csv')
+        guardarCSV([PathName,FileName],...
+            get(handles.Tabla_Entrada,'Data'));
+    end
+end
+end
+##### SOURCE END #####
+--></body></html>
