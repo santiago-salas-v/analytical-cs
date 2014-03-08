@@ -346,7 +346,7 @@ pKb             = -log10(Kw/Ka); %#ok<NASGU>
 
 % Polinomio C(1)*X^N + ... + C(N)*X + C(N+1) = 0
 % Se representa con el vector C = [C(1),C(2),...,C(N)];
-Polinomio       = ...
+Coefs_Polinomio       = ...
     [...
     +1,...
     +(1+1/Ka*V0/Vr*(C_NaA0-(C_HAfuerte0-C_LiBfuerte0))),...
@@ -354,8 +354,16 @@ Polinomio       = ...
     -Kw/Ka^2
     ];
 
-if ~any(isnan(Polinomio))
-    raices          = roots(Polinomio);
+% Discriminante DELTA = 18 abcd - 4b^3d + b^2c^2 -4ac^3 -27a^2d^2
+discriminante   = ...
+    +18*prod(Coefs_Polinomio(1:4))+...
+    -4*Coefs_Polinomio(2)^3*Coefs_Polinomio(4)+...
+    +Coefs_Polinomio(2)^2*Coefs_Polinomio(3)^2+...
+    -4*Coefs_Polinomio(1)*Coefs_Polinomio(3)^3+...
+    -27*Coefs_Polinomio(1)^2*Coefs_Polinomio(4)^2;
+
+if ~any(isnan(Coefs_Polinomio))
+    raices          = roots(Coefs_Polinomio);   
 else
     raices          = NaN;
 end
@@ -374,24 +382,39 @@ pOH             = -log10(C_OH); %#ok<NASGU>
 diferencias     = ....
     [(C_HA - C_HAinit)';(C_A - C_Ainit)']';
 
-normas          = zeros(size(diferencias,1),1);
-sonPosit        = C_H3O >= 0;
+sonPosit        = C_H3O > 0;
+normas          = NaN*zeros(size(diferencias,1),1);
+sonreales       = NaN*zeros(size(diferencias,1),1);
 
-for i=1:size(normas,1)
-    normas(i)   = norm(diferencias(i,:));
+for i=1:size(diferencias,1)
+    normas(i)       = norm(diferencias(i,:));
+    sonreales(i)    = isreal(C_H3O(i,:));
 end
 
-diferenciaMin   = find(normas==min(normas) & sonPosit);
+if discriminante > 0
+    % 3 raices reales distintas 
+    % (X-x1_R)(X-x2_R)(X-x3_R) = 0
+    %raizSeleccionada   = find(normas==min(normas) & sonPosit);
+    raizSeleccionada   = find( sonPosit );
+elseif discriminante == 0
+    % 3 raices reales , dos de ellas de multiplicidad (2)
+    % (X-x1_R)^2(X-x3_R) = 0
+    raizSeleccionada   = find( sonPosit );
+elseif discriminante < 0
+    % 2 raices complejas conjugadas y 1 raíz real
+    % (X-x1_C)(X-x1_C_conj)(X-x3_R) = 0
+    raizSeleccionada   = find( sonreales );
+end
 
-if      size(diferenciaMin,1) > 1
-    diferenciaMin = diferenciaMin(1);
-elseif  size(diferenciaMin,1) < 1
-    diferenciaMin = 2;
+if      size(raizSeleccionada,1) > 1
+    raizSeleccionada = raizSeleccionada(1);
+elseif  size(raizSeleccionada,1) < 1
+    raizSeleccionada = 2;
 end
 
 if size(varargin,1) > 0 && ...
     strcmp(varargin{1},'indiceDepHImpuesto')
-    diferenciaMin = varargin{2};
+    raizSeleccionada = varargin{2};
 end
 
 for i=1:size(Respuesta,1)
@@ -401,7 +424,7 @@ for i=1:size(Respuesta,1)
         if ~isscalar(Respuesta{i,2})
             Respuesta{i,2}   = ...
                 eval([Respuesta{i,1},...
-                '(',num2str(diferenciaMin),')']);
+                '(',num2str(raizSeleccionada),')']);
         elseif ~isscalar(Respuesta{i,2})
             Respuesta{i,2}   = ...
                 num2str(eval(Respuesta{i,1}));
@@ -450,24 +473,24 @@ else
         ', \alpha_0=\alpha_1'],'Fontweight','bold');
 end
 
-if isreal(pH(diferenciaMin))
+if isreal(pH(raizSeleccionada))
     puntoMedioX     = mean(get(handles.Eje2,'XLim'));
-    posicionEnX     = pH(diferenciaMin);
+    posicionEnX     = pH(raizSeleccionada);
     posicionDeNota  = ...
-        [pH(diferenciaMin),...
+        [pH(raizSeleccionada),...
         interp1(pH_Barrido,b,...
-        pH(diferenciaMin),'nearest','extrap')];
+        pH(raizSeleccionada),'nearest','extrap')];
     if posicionEnX >= puntoMedioX
         text('Parent',handles.Eje2,...
             'Position',posicionDeNota,...
-            'String',['pH= ',num2str(pH(diferenciaMin)),...
+            'String',['pH= ',num2str(pH(raizSeleccionada)),...
             '\rightarrow\bullet',],'Fontweight','bold',...
             'HorizontalAlignment','right');
     else
         text('Parent',handles.Eje2,...
             'Position',posicionDeNota,...
             'String',['\bullet\leftarrow',...
-            'pH= ',num2str(pH(diferenciaMin))],...
+            'pH= ',num2str(pH(raizSeleccionada))],...
             'Fontweight','bold');
     end
 end
@@ -490,7 +513,7 @@ end
 
 set(Botones_Matriz,'Enable','off');
 set(handles.Botones,'SelectedObject',...
-    Botones_Matriz(diferenciaMin));
+    Botones_Matriz(raizSeleccionada));
 
 set(Botones_Matriz,'Enable','on');
 set(handles.Tabla_Salida,'Data',Respuesta);
