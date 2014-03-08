@@ -726,7 +726,11 @@ funcionDeCalcular(hObject,eventData,handles,...
 end
 
 function GenerarReporte(~,~,~)
-publish('bufferSolution.m','format','html','evalCode',true);
+try
+    publish('bufferSolution.m','format','html','evalCode',true);
+catch error
+    msgbox({error.message,'Opeing content'});
+end
 web('html/bufferSolution.html');
 end
 

@@ -477,7 +477,11 @@ funcionDeCalcular(hObject,eventData,handles,<span class="keyword">...</span>
 <span class="keyword">end</span>
 
 <span class="keyword">function</span> GenerarReporte(~,~,~)
-publish(<span class="string">'bufferSolution.m'</span>,<span class="string">'format'</span>,<span class="string">'html'</span>,<span class="string">'evalCode'</span>,true);
+<span class="keyword">try</span>
+    publish(<span class="string">'bufferSolution.m'</span>,<span class="string">'format'</span>,<span class="string">'html'</span>,<span class="string">'evalCode'</span>,true);
+<span class="keyword">catch</span> error
+    msgbox({error.message,<span class="string">'Opeing content'</span>});
+<span class="keyword">end</span>
 web(<span class="string">'html/bufferSolution.html'</span>);
 <span class="keyword">end</span>
 
@@ -1294,7 +1298,11 @@ funcionDeCalcular(hObject,eventData,handles,...
 end
 
 function GenerarReporte(~,~,~)
-publish('bufferSolution.m','format','html','evalCode',true);
+try
+    publish('bufferSolution.m','format','html','evalCode',true);
+catch error
+    msgbox({error.message,'Opeing content'});
+end
 web('html/bufferSolution.html');
 end
 
