@@ -1,5 +1,5 @@
 %% BUFFER SOLUTIONS
-% Calcula disoluciones 'buffer' / tampón, basado en el balance
+% Calcula disoluciones amortiguador 'buffer' , basado en el balance
 % de materia y equilibrios ácido - base.
 %% Esquema
 % 
@@ -7,53 +7,57 @@
 % 
 %% Reacciones
 % _1.- Adición de Base Fuerte LiB y / o Ácido Fuerte HAf_
-% $\begin{array}{ccccccc|cc} 
-%  & & LiB   & {\bf \longrightarrow \atop \leftarrow} &
+% $\begin{array}{cccccccc|cc} 
+% (1)& & & LiB   & {\bf \longrightarrow \atop \leftarrow} &
 % Li^{(+)} & + & B^{(-)} & 
 % Kc_I = C_{Lieq^{(+)}} \times C_{Beq^{(-)}}  
 %      & \rightarrow \infty \\
-% B^{(-)} & + & H_2O   & {\bf \longrightarrow \atop \leftarrow} &
+% (2)& B^{(-)} & + & H_2O   & {\bf \longrightarrow \atop \leftarrow} &
 % HB &  + & OH^{(-)}  & 
 % Kb_I = C_{OHeq^{(-)}} \times C_{HBeq} / 
 %      C_{Beq^{(-)}}  &  \rightarrow \infty \\
-% HAf & + & H_2O   & {\longrightarrow \atop \leftarrow} &
+% (3)& HAf & + & H_2O   & {\longrightarrow \atop \leftarrow} &
 % H_3O^{(+)} & + & Af^{(-)} & 
 % Ka_I = C_{H_3Oeq^{(+)}} \times C_{Afeq^{(-)}} / 
 %      C_{HAfeq}  & \rightarrow \infty \\
-%    & 2 & H_2O & {\rightarrow \atop \leftarrow} &
+% (4)&   & 2 & H_2O & {\rightarrow \atop \leftarrow} &
 % H_3O^{(+)} & + &  OH^{(-)} & 
 % Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
 %      10^{-14} & = K_{c3} \times C_{H_2Oeq}^2 \\
 % \end{array}$
-% _2.- Adición de tampón / buffer HA + NaA_
-% $\begin{array}{ccccccc|cc} 
-%  & & NaA   & {\bf \longrightarrow \atop \leftarrow} &
+% _2.- Adición de amortiguador / buffer HA + NaA_
+% $\begin{array}{cccccccc|cc} 
+% (5)& & & NaA   & {\bf \longrightarrow \atop \leftarrow} &
 % Na^{(+)} & + & A^{(-)} & 
 % Kc_{II} = C_{Naeq^{(+)}} \times C_{Aeq^{(-)}}  
 %      & \rightarrow \infty \\
-% HA & + & H_2O   & {\rightarrow \atop \leftarrow} &
+% (6)& HA & + & H_2O   & {\rightarrow \atop \leftarrow} &
 % H_3O^{(+)} & + & A^{(-)} & 
 % Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} / 
 %      C_{HAeq}  & = K_{c1} \times C_{H_2Oeq} \\
-% A^{(-)} & + & H_2O   & {\rightarrow \atop \leftarrow} &
+% (7)& A^{(-)} & + & H_2O   & {\rightarrow \atop \leftarrow} &
 % HA &  + & OH^{(-)}  & 
 % Kb = C_{OHeq^{(-)}} \times C_{HAeq} / 
 %      C_{Aeq^{(-)}}  & = K_{c2} \times C_{H_2Oeq} \\
-%    & 2 & H_2O & {\rightarrow \atop \leftarrow} &
+% (4)&   & 2 & H_2O & {\rightarrow \atop \leftarrow} &
 % H_3O^{(+)} & + &  OH^{(-)} & 
 % Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  = 
 %      10^{-14} & = K_{c3} \times C_{H_2Oeq}^2 \\
 % \end{array}$
-%% Condiciones de alimentación
+%% Condiciones iniciales y alimentación
+% * Partir de agua pH=7 al inicio (t0). 
+% $C_{H_3O^{(+)}(t0)}=10^{-7}gmol/L$
 % * Agregar base fuerte $V_0 C_{LiB_0}$ y ácido fuerte 
 %   $V_0 C_{HAf_0}$.
-% * Agregar buffer en forma de ácido $V_0 C_{HA_0}$ + sal 
+% * Agregar amortiguador en forma de ácido $V_0 C_{HA_0}$ + sal 
 %   $V_0 C_{NaA_0}$.
 % La sal se disocia
 % completamente, el ácido de acuerdo con el equilibrio ácido-base.
 % * Parámetros:
 %
 % $Vr$
+%
+% _Alimentación_
 %
 % $V_0 C_{HA_0}$
 %
@@ -63,9 +67,69 @@
 %
 % $V_0 C_{HAf_0}$
 %
+% _Condiciones iniciales_
+%
+% $C_{H_3O^{(+)}(t0)}=10^{-7}gmol/L$
+%
+% $C_{OH^{(-)}(t0)}={{10^{-14}} \over {10^{-7}}}gmol/L$
+%
+% $C_{HA(t0)} = {V_0 \over Vr} C_{HA_0}$
+%
+% $C_{NaA(t0)} = {V_0 \over Vr} C_{NaA_0}$
+%
+% $C_{LiB(t0)} = {V_0 \over Vr} C_{LiB_0}$
+%
+% $C_{HAf(t0)} = {V_0 \over Vr} C_{HAf_0}$
 %
 %% Ecuaciones
-% Por balance de materia + carga + equilibrios:
+%
+% * Balance de materia para avance $\xi_j$ de reacción j en 'batch':
+% $(C_{i} - C_{i0}) = \Sigma_j (\nu_{ij} \times \xi_j)$
+%
+% $\begin{array}{ccccccc}
+%   0 & & & & & & \\
+% \overbrace {C_{LiB}} & - & 
+% C_{LiB(t0)} & = & (-1) \times \xi_1 & & \\
+%     & & 0 & & & & \\
+% C_{Li^{(+)}} & - & 
+% \overbrace {C_{Li^{(+)}(t0)}} & = & (+1) \times \xi_1 & & \\
+%    0 & & 0 & & & & \\
+% \overbrace {C_{B^{(-)}}} & - & 
+% \overbrace {C_{B^{(-)}(t0)}} & = & (+1) \times \xi_1 & + 
+% (-1) \times \xi_2 & \\
+%   0 & & & & & & \\
+% \overbrace {C_{HAf}} & - & 
+% C_{HAf(t0)} & = & (-1) \times \xi_3 & & \\
+%    & & & & & & \\
+% C_{H_3O^{(+)}} & - & 
+% C_{H_3O^{(+)}(t0)} & = & (+1) \times \xi_3 & +
+% (+1) \times \xi_4 & + (+1) \times \xi_6  \\
+%    & & & & & & \\
+% C_{OH^{(-)}} & - & 
+% C_{OH^{(-)}(t0)} & = & (+1) \times \xi_2 & +
+% (+1) \times \xi_4 & + (+1) \times \xi_7 \\
+% \end{array}$
+%
+% $\begin{array}{ccccccc}
+%     & & 0 & & & & \\
+% C_{Na^{(+)}} & - & 
+% \overbrace {C_{Na^{(+)}(t0)}} & = & (+1) \times \xi_5 & & \\
+%   0 & & & & & & \\
+% \overbrace {C_{NaA}} & - & 
+% C_{NaA(t0)} & = & (-1) \times \xi_5 & & \\
+%   & & & & & & \\
+% C_{HA} & - & 
+% C_{HA(t0)} & = & (-1) \times \xi_6 & + 
+% (+1) \times \xi_7 & \\
+%     & & 0 & & & & \\
+% C_{A^{(-)}} & - & 
+% C_{A^{(-)}(t0)} & = & (+1) \times \xi_6 & +
+% (-1) \times \xi_7 & \\
+% \end{array}$
+% 
+% * Balance de carga
+%
+% * Equilibrios
 %
 % Resulta un sistema algebráico no lineal, 4 ecuaciones 
 % *independientes* y 4 variables.
