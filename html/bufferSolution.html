@@ -62,7 +62,7 @@ p.footer {
   color: gray;
 }
 
-  </style></head><body><div class="content"><h1>BUFFER SOLUTIONS</h1><!--introduction--><p>Calcula disoluciones amortiguador 'buffer' , basado en el balance de materia y equilibrios &aacute;cido - base.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Esquema</a></li><li><a href="#2">Reacciones</a></li><li><a href="#3">Condiciones iniciales y alimentaci&oacute;n</a></li><li><a href="#4">Ecuaciones</a></li><li><a href="#5">Soluci&oacute;n</a></li></ul></div><h2>Esquema<a name="1"></a></h2><p><img vspace="5" hspace="5" src="../utils/diagrama_1.png" alt=""> </p><h2>Reacciones<a name="2"></a></h2><p><i>1.- Adici&oacute;n de Base Fuerte LiB y / o &Aacute;cido Fuerte HAf</i> <img src="bufferSolution_eq01021.png" alt="$\begin{array}{cccccccc|cc} (1)&amp; &amp; &amp; LiB   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; Li^{(+)} &amp; + &amp; B^{(-)} &amp; Kc_I = C_{Lieq^{(+)}} \times C_{Beq^{(-)}}      &amp; \rightarrow \infty \\ (2)&amp; B^{(-)} &amp; + &amp; H_2O   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; HB &amp;  + &amp; OH^{(-)}  &amp; Kb_I = C_{OHeq^{(-)}} \times C_{HBeq} /      C_{Beq^{(-)}}  &amp;  \rightarrow \infty \\ (3)&amp; HAf &amp; + &amp; H_2O   &amp; {\longrightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp; Af^{(-)} &amp; Ka_I = C_{H_3Oeq^{(+)}} \times C_{Afeq^{(-)}} /      C_{HAfeq}  &amp; \rightarrow \infty \\ (4)&amp;   &amp; 2 &amp; H_2O &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp;  OH^{(-)} &amp; Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  =      10^{-14} &amp; = K_{c3} \times C_{H_2Oeq}^2 \\ \end{array}$"> <i>2.- Adici&oacute;n de amortiguador / buffer HA + NaA</i> <img src="bufferSolution_eq62245.png" alt="$\begin{array}{cccccccc|cc} (5)&amp; &amp; &amp; NaA   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; Na^{(+)} &amp; + &amp; A^{(-)} &amp; Kc_{II} = C_{Naeq^{(+)}} \times C_{Aeq^{(-)}}      &amp; \rightarrow \infty \\ (6)&amp; HA &amp; + &amp; H_2O   &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp; A^{(-)} &amp; Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} /      C_{HAeq}  &amp; = K_{c1} \times C_{H_2Oeq} \\ (7)&amp; A^{(-)} &amp; + &amp; H_2O   &amp; {\rightarrow \atop \leftarrow} &amp; HA &amp;  + &amp; OH^{(-)}  &amp; Kb = C_{OHeq^{(-)}} \times C_{HAeq} /      C_{Aeq^{(-)}}  &amp; = K_{c2} \times C_{H_2Oeq} \\ (4)&amp;   &amp; 2 &amp; H_2O &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp;  OH^{(-)} &amp; Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  =      10^{-14} &amp; = K_{c3} \times C_{H_2Oeq}^2 \\ \end{array}$"></p><h2>Condiciones iniciales y alimentaci&oacute;n<a name="3"></a></h2><div><ul><li>Partir de agua pH=7 al inicio (t0). <img src="bufferSolution_eq12688.png" alt="$C_{H_3O^{(+)}(t0)}=10^{-7}gmol/L$"></li><li>Agregar base fuerte <img src="bufferSolution_eq45260.png" alt="$V_0 C_{LiB_0}$"> y &aacute;cido fuerte   <img src="bufferSolution_eq80636.png" alt="$V_0 C_{HAf_0}$">.</li><li>Agregar amortiguador en forma de &aacute;cido <img src="bufferSolution_eq48403.png" alt="$V_0 C_{HA_0}$"> + sal   <img src="bufferSolution_eq89101.png" alt="$V_0 C_{NaA_0}$">. La sal se disocia completamente, el &aacute;cido de acuerdo con el equilibrio &aacute;cido-base.</li><li>Par&aacute;metros:</li></ul></div><p><img src="bufferSolution_eq16808.png" alt="$Vr$"></p><p><i>Alimentaci&oacute;n</i></p><p><img src="bufferSolution_eq48403.png" alt="$V_0 C_{HA_0}$"></p><p><img src="bufferSolution_eq89101.png" alt="$V_0 C_{NaA_0}$"></p><p><img src="bufferSolution_eq45260.png" alt="$V_0 C_{LiB_0}$"></p><p><img src="bufferSolution_eq80636.png" alt="$V_0 C_{HAf_0}$"></p><p><i>Condiciones iniciales</i></p><p><img src="bufferSolution_eq12688.png" alt="$C_{H_3O^{(+)}(t0)}=10^{-7}gmol/L$"></p><p><img src="bufferSolution_eq87840.png" alt="$C_{OH^{(-)}(t0)}={{10^{-14}} \over {10^{-7}}}gmol/L$"></p><p><img src="bufferSolution_eq96062.png" alt="$C_{HA(t0)} = {V_0 \over Vr} C_{HA_0}$"></p><p><img src="bufferSolution_eq16476.png" alt="$C_{NaA(t0)} = {V_0 \over Vr} C_{NaA_0}$"></p><p><img src="bufferSolution_eq41484.png" alt="$C_{LiB(t0)} = {V_0 \over Vr} C_{LiB_0}$"></p><p><img src="bufferSolution_eq29659.png" alt="$C_{HAf(t0)} = {V_0 \over Vr} C_{HAf_0}$"></p><h2>Ecuaciones<a name="4"></a></h2><div><ul><li>Balance de materia para avance <img src="bufferSolution_eq83766.png" alt="$\xi_j$"> de reacci&oacute;n j en 'batch': <img src="bufferSolution_eq84410.png" alt="$(C_{i} - C_{i0}) = \Sigma_j (\nu_{ij} \times \xi_j)$"></li></ul></div><p><img src="bufferSolution_eq29311.png" alt="$\begin{array}{ccccccc}   0 &amp; &amp; &amp; &amp; &amp; &amp; \\ \overbrace {C_{LiB}} &amp; - &amp; C_{LiB(t0)} &amp; = &amp; (-1) \times \xi_1 &amp; &amp; \\     &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ C_{Li^{(+)}} &amp; - &amp; \overbrace {C_{Li^{(+)}(t0)}} &amp; = &amp; (+1) \times \xi_1 &amp; &amp; \\    0 &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ \overbrace {C_{B^{(-)}}} &amp; - &amp; \overbrace {C_{B^{(-)}(t0)}} &amp; = &amp; (+1) \times \xi_1 &amp; + (-1) \times \xi_2 &amp; \\   0 &amp; &amp; &amp; &amp; &amp; &amp; \\ \overbrace {C_{HAf}} &amp; - &amp; C_{HAf(t0)} &amp; = &amp; (-1) \times \xi_3 &amp; &amp; \\    &amp; &amp; &amp; &amp; &amp; &amp; \\ C_{H_3O^{(+)}} &amp; - &amp; C_{H_3O^{(+)}(t0)} &amp; = &amp; (+1) \times \xi_3 &amp; + (+1) \times \xi_4 &amp; + (+1) \times \xi_6  \\    &amp; &amp; &amp; &amp; &amp; &amp; \\ C_{OH^{(-)}} &amp; - &amp; C_{OH^{(-)}(t0)} &amp; = &amp; (+1) \times \xi_2 &amp; + (+1) \times \xi_4 &amp; + (+1) \times \xi_7 \\ \end{array}$"></p><p><img src="bufferSolution_eq91038.png" alt="$\begin{array}{ccccccc}     &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ C_{Na^{(+)}} &amp; - &amp; \overbrace {C_{Na^{(+)}(t0)}} &amp; = &amp; (+1) \times \xi_5 &amp; &amp; \\   0 &amp; &amp; &amp; &amp; &amp; &amp; \\ \overbrace {C_{NaA}} &amp; - &amp; C_{NaA(t0)} &amp; = &amp; (-1) \times \xi_5 &amp; &amp; \\   &amp; &amp; &amp; &amp; &amp; &amp; \\ C_{HA} &amp; - &amp; C_{HA(t0)} &amp; = &amp; (-1) \times \xi_6 &amp; + (+1) \times \xi_7 &amp; \\     &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ C_{A^{(-)}} &amp; - &amp; \overbrace {C_{A^{(-)}(t0)}} &amp; = &amp; (+1) \times \xi_5 &amp; + (+1) \times \xi_6 &amp; + (-1) \times \xi_7  \\ \end{array}$"></p><p>Eliminar los avances de reacci&oacute;n <img src="bufferSolution_eq97708.png" alt="$\xi_i$"> a favor de los par&aacute;metros especificados, con la sig. diferencia:</p><p><img src="bufferSolution_eq24873.png" alt="$\begin{array}{ccc} (C_{H_3O^{(+)}} - C_{H_3O^{(+)}(t0)}) - (C_{OH^{(-)}} - C_{OH^{(-)}(t0)})     &amp; = &amp; (C_{H_3O^{(+)}} - C_{OH^{(-)}}) \\                                       &amp; = &amp; (\xi_3 - \xi_2) + (\xi_6 - \xi_7) \\ \end{array}$"></p><p><img src="bufferSolution_eq91381.png" alt="$\begin{array}{ccc} (C_{H_3O^{(+)}} - C_{OH^{(-)}}) &amp; = &amp; (C_{HAf(t0)}-C_{LiB(t0)}) - (C_{HA}-C_{HA(t0)}) \\                                       &amp; = &amp; (C_{HAf(t0)}-C_{LiB(t0)}) + (C_{A^{(-)}}-C_{NaA(t0)}) \\                                       &amp; = &amp; {V_0 \over Vr}(C_{HAf_0}-C_{LiB_0}) - (C_{HA}-{V_0 \over Vr}C_{HA_0}) \\                                       &amp; = &amp; {V_0 \over Vr}(C_{HAf_0}-C_{LiB_0}) + (C_{A^{(-)}}-{V_0 \over Vr}C_{NaA_0}) \\ \end{array}$"></p><div><ul><li>Balance de carga</li></ul></div><p><img src="bufferSolution_eq32505.png" alt="$\begin{array}{ccc}       &amp;       0       &amp; \\ 0 =   C_{H_3O^{(+)}} + C_{Na^{(+)}} + C_{Li^{(+)}} - &amp;       \overbrace {C_{B^{(-)}}} &amp; - C_{Af^{(-)}} - C_{A^{(-)}} -       C_{OH^{(-)}} \end{array}$"></p><p>Reordenando se observa que en este caso no es una ecuaci&oacute;n independiente del balance de materia.</p><p><img src="bufferSolution_eq70024.png" alt="$\begin{array}{ccc} (C_{H_3O^{(+)}} - C_{OH^{(-)}}) &amp; = &amp; (C_{Af^{(-)}}-C_{Li^{(+)}}) + (C_{A^{(-)}}-C_{Na^{(+)}}) \\                                       &amp; = &amp; (C_{HAf(t0)}-C_{LiB(t0)}) + (C_{A^{(-)}}-C_{NaA(t0)}) \end{array}$"></p><div><ul><li>Equilibrios</li></ul></div><p><img src="bufferSolution_eq73466.png" alt="$Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} /      C_{HAeq}$"></p><p><img src="bufferSolution_eq78809.png" alt="$Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}$"></p><p>Resulta un sistema algebr&aacute;ico no lineal, 4 ecuaciones <b>independientes</b> y 4 variables. <img src="bufferSolution_eq98855.png" alt="$\begin{array}{cccccccccc} {V_0 \over Vr} \times \left({C_{HA_0}} + \left( C_{HAf_0} - C_{LiB_0} \right) \right) &amp; = &amp; + &amp; C_{HAeq} &amp; + &amp; 0 &amp; + &amp; C_{H_3Oeq^{(+)}} &amp; - &amp; C_{OHeq^{(-)}} \\ {V_0 \over Vr} \times \left({C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right) \right) &amp; = &amp; + &amp; 0 &amp; + &amp; C_{Aeq^{(-)}} &amp; - &amp; C_{H_3Oeq^{(+)}} &amp; + &amp; C_{OHeq^{(-)}} \\ 0 &amp; = &amp; + &amp; Ka \times C_{HAeq} &amp; - &amp; C_{Aeq^{(-)}} &amp; \times &amp; C_{H_3Oeq^{(+)}} &amp; + &amp; 0 \\ Kw &amp; = &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; C_{H_3Oeq^{(+)}} &amp; \times &amp; C_{OHeq^{(-)}} \\ \end{array}$"></p><h2>Soluci&oacute;n<a name="5"></a></h2><p>Reducci&oacute;n a 1 polinomio de 3er grado.</p><p><img src="bufferSolution_eq52421.png" alt="$\begin{array}{cccccc} 0 &amp; = &amp; + &amp; 1 &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 \\   &amp;   &amp; + &amp; \left( 1+{{V_0 / Vr} \over Ka} \times \left(  {C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right)  \right) \right) &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^2 \\   &amp;   &amp; - &amp; \left( {Kw \over Ka^2} + {{V_0 / Vr} \over Ka} \times \left(  {C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right)  \right) \right) &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^1 \\   &amp;   &amp; - &amp; {Kw \over Ka^2 } &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^0 \\ \end{array}$"></p><div><ul><li>Fijar alimentaci&oacute;n.</li><li>Resolver ecuaci&oacute;n c&uacute;bica para <img src="bufferSolution_eq59740.png" alt="$C_{H_3Oeq^{(+)}}$"> , calcular pH.</li><li>Calcular <img src="bufferSolution_eq36011.png" alt="$C_{OHeq^{(-)}}$"> por ec. 4.</li><li>Calcular <img src="bufferSolution_eq03388.png" alt="$C_{Aeq^{(-)}}$"> y <img src="bufferSolution_eq84374.png" alt="$C_{HAeq}$"> por ecs. 1,2.</li><li>Respuesta:</li></ul></div><p><img src="bufferSolution_eq59740.png" alt="$C_{H_3Oeq^{(+)}}$">, <img src="bufferSolution_eq03665.png" alt="$pH$"></p><p><img src="bufferSolution_eq36011.png" alt="$C_{OHeq^{(-)}}$"></p><p><img src="bufferSolution_eq03388.png" alt="$C_{Aeq^{(-)}}$"></p><p><img src="bufferSolution_eq84374.png" alt="$C_{HAeq}$"></p><p><img src="bufferSolution_eq37685.png" alt="$C_{Na^{(+)}}$"></p><p><img src="bufferSolution_eq75412.png" alt="$C_{Li^{(+)}}$"></p><p><img src="bufferSolution_eq69414.png" alt="$C_{Af^{(-)}}$"></p><pre class="codeinput"><span class="keyword">function</span> bufferSolution()
+  </style></head><body><div class="content"><h1>BUFFER SOLUTIONS</h1><!--introduction--><p>Calcula disoluciones amortiguador 'buffer' , basado en el balance de materia y equilibrios &aacute;cido - base.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Esquema</a></li><li><a href="#2">Reacciones</a></li><li><a href="#3">Condiciones iniciales y alimentaci&oacute;n</a></li><li><a href="#4">Ecuaciones</a></li><li><a href="#5">Soluci&oacute;n</a></li><li><a href="#6">Capacidad del amortiguador <img src="bufferSolution_eq42727.png" alt="$\beta$"></a></li></ul></div><h2>Esquema<a name="1"></a></h2><p><img vspace="5" hspace="5" src="../utils/diagrama_1.png" alt=""> </p><h2>Reacciones<a name="2"></a></h2><p><i>1.- Adici&oacute;n de Base Fuerte LiB y / o &Aacute;cido Fuerte HAf</i> <img src="bufferSolution_eq01021.png" alt="$\begin{array}{cccccccc|cc} (1)&amp; &amp; &amp; LiB   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; Li^{(+)} &amp; + &amp; B^{(-)} &amp; Kc_I = C_{Lieq^{(+)}} \times C_{Beq^{(-)}}      &amp; \rightarrow \infty \\ (2)&amp; B^{(-)} &amp; + &amp; H_2O   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; HB &amp;  + &amp; OH^{(-)}  &amp; Kb_I = C_{OHeq^{(-)}} \times C_{HBeq} /      C_{Beq^{(-)}}  &amp;  \rightarrow \infty \\ (3)&amp; HAf &amp; + &amp; H_2O   &amp; {\longrightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp; Af^{(-)} &amp; Ka_I = C_{H_3Oeq^{(+)}} \times C_{Afeq^{(-)}} /      C_{HAfeq}  &amp; \rightarrow \infty \\ (4)&amp;   &amp; 2 &amp; H_2O &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp;  OH^{(-)} &amp; Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  =      10^{-14} &amp; = K_{c3} \times C_{H_2Oeq}^2 \\ \end{array}$"> <i>2.- Adici&oacute;n de amortiguador / buffer HA + NaA</i> <img src="bufferSolution_eq62245.png" alt="$\begin{array}{cccccccc|cc} (5)&amp; &amp; &amp; NaA   &amp; {\bf \longrightarrow \atop \leftarrow} &amp; Na^{(+)} &amp; + &amp; A^{(-)} &amp; Kc_{II} = C_{Naeq^{(+)}} \times C_{Aeq^{(-)}}      &amp; \rightarrow \infty \\ (6)&amp; HA &amp; + &amp; H_2O   &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp; A^{(-)} &amp; Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} /      C_{HAeq}  &amp; = K_{c1} \times C_{H_2Oeq} \\ (7)&amp; A^{(-)} &amp; + &amp; H_2O   &amp; {\rightarrow \atop \leftarrow} &amp; HA &amp;  + &amp; OH^{(-)}  &amp; Kb = C_{OHeq^{(-)}} \times C_{HAeq} /      C_{Aeq^{(-)}}  &amp; = K_{c2} \times C_{H_2Oeq} \\ (4)&amp;   &amp; 2 &amp; H_2O &amp; {\rightarrow \atop \leftarrow} &amp; H_3O^{(+)} &amp; + &amp;  OH^{(-)} &amp; Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}  =      10^{-14} &amp; = K_{c3} \times C_{H_2Oeq}^2 \\ \end{array}$"></p><h2>Condiciones iniciales y alimentaci&oacute;n<a name="3"></a></h2><div><ul><li>Partir de agua pH=7 al inicio (t0). <img src="bufferSolution_eq12688.png" alt="$C_{H_3O^{(+)}(t0)}=10^{-7}gmol/L$"></li><li>Agregar base fuerte <img src="bufferSolution_eq45260.png" alt="$V_0 C_{LiB_0}$"> y &aacute;cido fuerte   <img src="bufferSolution_eq80636.png" alt="$V_0 C_{HAf_0}$">.</li><li>Agregar amortiguador en forma de &aacute;cido <img src="bufferSolution_eq48403.png" alt="$V_0 C_{HA_0}$"> + sal   <img src="bufferSolution_eq89101.png" alt="$V_0 C_{NaA_0}$">. La sal se disocia completamente, el &aacute;cido de acuerdo con el equilibrio &aacute;cido-base.</li><li>Par&aacute;metros:</li></ul></div><p><img src="bufferSolution_eq16808.png" alt="$Vr$"></p><p><i>Alimentaci&oacute;n</i></p><p><img src="bufferSolution_eq48403.png" alt="$V_0 C_{HA_0}$"></p><p><img src="bufferSolution_eq89101.png" alt="$V_0 C_{NaA_0}$"></p><p><img src="bufferSolution_eq45260.png" alt="$V_0 C_{LiB_0}$"></p><p><img src="bufferSolution_eq80636.png" alt="$V_0 C_{HAf_0}$"></p><p><i>Condiciones iniciales</i></p><p><img src="bufferSolution_eq12688.png" alt="$C_{H_3O^{(+)}(t0)}=10^{-7}gmol/L$"></p><p><img src="bufferSolution_eq87840.png" alt="$C_{OH^{(-)}(t0)}={{10^{-14}} \over {10^{-7}}}gmol/L$"></p><p><img src="bufferSolution_eq96062.png" alt="$C_{HA(t0)} = {V_0 \over Vr} C_{HA_0}$"></p><p><img src="bufferSolution_eq16476.png" alt="$C_{NaA(t0)} = {V_0 \over Vr} C_{NaA_0}$"></p><p><img src="bufferSolution_eq41484.png" alt="$C_{LiB(t0)} = {V_0 \over Vr} C_{LiB_0}$"></p><p><img src="bufferSolution_eq29659.png" alt="$C_{HAf(t0)} = {V_0 \over Vr} C_{HAf_0}$"></p><h2>Ecuaciones<a name="4"></a></h2><div><ul><li>Balance de materia para avance <img src="bufferSolution_eq83766.png" alt="$\xi_j$"> de reacci&oacute;n j en 'batch': <img src="bufferSolution_eq84410.png" alt="$(C_{i} - C_{i0}) = \Sigma_j (\nu_{ij} \times \xi_j)$"></li></ul></div><p><img src="bufferSolution_eq29311.png" alt="$\begin{array}{ccccccc}   0 &amp; &amp; &amp; &amp; &amp; &amp; \\ \overbrace {C_{LiB}} &amp; - &amp; C_{LiB(t0)} &amp; = &amp; (-1) \times \xi_1 &amp; &amp; \\     &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ C_{Li^{(+)}} &amp; - &amp; \overbrace {C_{Li^{(+)}(t0)}} &amp; = &amp; (+1) \times \xi_1 &amp; &amp; \\    0 &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ \overbrace {C_{B^{(-)}}} &amp; - &amp; \overbrace {C_{B^{(-)}(t0)}} &amp; = &amp; (+1) \times \xi_1 &amp; + (-1) \times \xi_2 &amp; \\   0 &amp; &amp; &amp; &amp; &amp; &amp; \\ \overbrace {C_{HAf}} &amp; - &amp; C_{HAf(t0)} &amp; = &amp; (-1) \times \xi_3 &amp; &amp; \\    &amp; &amp; &amp; &amp; &amp; &amp; \\ C_{H_3O^{(+)}} &amp; - &amp; C_{H_3O^{(+)}(t0)} &amp; = &amp; (+1) \times \xi_3 &amp; + (+1) \times \xi_4 &amp; + (+1) \times \xi_6  \\    &amp; &amp; &amp; &amp; &amp; &amp; \\ C_{OH^{(-)}} &amp; - &amp; C_{OH^{(-)}(t0)} &amp; = &amp; (+1) \times \xi_2 &amp; + (+1) \times \xi_4 &amp; + (+1) \times \xi_7 \\ \end{array}$"></p><p><img src="bufferSolution_eq91038.png" alt="$\begin{array}{ccccccc}     &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ C_{Na^{(+)}} &amp; - &amp; \overbrace {C_{Na^{(+)}(t0)}} &amp; = &amp; (+1) \times \xi_5 &amp; &amp; \\   0 &amp; &amp; &amp; &amp; &amp; &amp; \\ \overbrace {C_{NaA}} &amp; - &amp; C_{NaA(t0)} &amp; = &amp; (-1) \times \xi_5 &amp; &amp; \\   &amp; &amp; &amp; &amp; &amp; &amp; \\ C_{HA} &amp; - &amp; C_{HA(t0)} &amp; = &amp; (-1) \times \xi_6 &amp; + (+1) \times \xi_7 &amp; \\     &amp; &amp; 0 &amp; &amp; &amp; &amp; \\ C_{A^{(-)}} &amp; - &amp; \overbrace {C_{A^{(-)}(t0)}} &amp; = &amp; (+1) \times \xi_5 &amp; + (+1) \times \xi_6 &amp; + (-1) \times \xi_7  \\ \end{array}$"></p><p>Eliminar los avances de reacci&oacute;n <img src="bufferSolution_eq97708.png" alt="$\xi_i$"> a favor de los par&aacute;metros especificados, con la sig. diferencia:</p><p><img src="bufferSolution_eq24873.png" alt="$\begin{array}{ccc} (C_{H_3O^{(+)}} - C_{H_3O^{(+)}(t0)}) - (C_{OH^{(-)}} - C_{OH^{(-)}(t0)})     &amp; = &amp; (C_{H_3O^{(+)}} - C_{OH^{(-)}}) \\                                       &amp; = &amp; (\xi_3 - \xi_2) + (\xi_6 - \xi_7) \\ \end{array}$"></p><p><img src="bufferSolution_eq91381.png" alt="$\begin{array}{ccc} (C_{H_3O^{(+)}} - C_{OH^{(-)}}) &amp; = &amp; (C_{HAf(t0)}-C_{LiB(t0)}) - (C_{HA}-C_{HA(t0)}) \\                                       &amp; = &amp; (C_{HAf(t0)}-C_{LiB(t0)}) + (C_{A^{(-)}}-C_{NaA(t0)}) \\                                       &amp; = &amp; {V_0 \over Vr}(C_{HAf_0}-C_{LiB_0}) - (C_{HA}-{V_0 \over Vr}C_{HA_0}) \\                                       &amp; = &amp; {V_0 \over Vr}(C_{HAf_0}-C_{LiB_0}) + (C_{A^{(-)}}-{V_0 \over Vr}C_{NaA_0}) \\ \end{array}$"></p><div><ul><li>Balance de carga</li></ul></div><p><img src="bufferSolution_eq32505.png" alt="$\begin{array}{ccc}       &amp;       0       &amp; \\ 0 =   C_{H_3O^{(+)}} + C_{Na^{(+)}} + C_{Li^{(+)}} - &amp;       \overbrace {C_{B^{(-)}}} &amp; - C_{Af^{(-)}} - C_{A^{(-)}} -       C_{OH^{(-)}} \end{array}$"></p><p>Reordenando se observa que en este caso no es una ecuaci&oacute;n independiente del balance de materia.</p><p><img src="bufferSolution_eq70024.png" alt="$\begin{array}{ccc} (C_{H_3O^{(+)}} - C_{OH^{(-)}}) &amp; = &amp; (C_{Af^{(-)}}-C_{Li^{(+)}}) + (C_{A^{(-)}}-C_{Na^{(+)}}) \\                                       &amp; = &amp; (C_{HAf(t0)}-C_{LiB(t0)}) + (C_{A^{(-)}}-C_{NaA(t0)}) \end{array}$"></p><div><ul><li>Equilibrios</li></ul></div><p><img src="bufferSolution_eq73466.png" alt="$Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} /      C_{HAeq}$"></p><p><img src="bufferSolution_eq78809.png" alt="$Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}$"></p><p>Resulta un sistema algebr&aacute;ico no lineal, 4 ecuaciones <b>independientes</b> y 4 variables. <img src="bufferSolution_eq98855.png" alt="$\begin{array}{cccccccccc} {V_0 \over Vr} \times \left({C_{HA_0}} + \left( C_{HAf_0} - C_{LiB_0} \right) \right) &amp; = &amp; + &amp; C_{HAeq} &amp; + &amp; 0 &amp; + &amp; C_{H_3Oeq^{(+)}} &amp; - &amp; C_{OHeq^{(-)}} \\ {V_0 \over Vr} \times \left({C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right) \right) &amp; = &amp; + &amp; 0 &amp; + &amp; C_{Aeq^{(-)}} &amp; - &amp; C_{H_3Oeq^{(+)}} &amp; + &amp; C_{OHeq^{(-)}} \\ 0 &amp; = &amp; + &amp; Ka \times C_{HAeq} &amp; - &amp; C_{Aeq^{(-)}} &amp; \times &amp; C_{H_3Oeq^{(+)}} &amp; + &amp; 0 \\ Kw &amp; = &amp; + &amp; 0 &amp; + &amp; 0 &amp; + &amp; C_{H_3Oeq^{(+)}} &amp; \times &amp; C_{OHeq^{(-)}} \\ \end{array}$"></p><h2>Soluci&oacute;n<a name="5"></a></h2><p>Reducci&oacute;n a 1 polinomio de 3er grado.</p><p><img src="bufferSolution_eq52421.png" alt="$\begin{array}{cccccc} 0 &amp; = &amp; + &amp; 1 &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^3 \\   &amp;   &amp; + &amp; \left( 1+{{V_0 / Vr} \over Ka} \times \left(  {C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right)  \right) \right) &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^2 \\   &amp;   &amp; - &amp; \left( {Kw \over Ka^2} + {{V_0 / Vr} \over Ka} \times \left(  {C_{NaA_0}} - \left( C_{HAf_0} - C_{LiB_0} \right)  \right) \right) &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^1 \\   &amp;   &amp; - &amp; {Kw \over Ka^2 } &amp; \times &amp; \left[ {C_{H_3Oeq^{(+)}} \over Ka} \right]^0 \\ \end{array}$"></p><div><ul><li>Fijar alimentaci&oacute;n.</li><li>Resolver ecuaci&oacute;n c&uacute;bica para <img src="bufferSolution_eq59740.png" alt="$C_{H_3Oeq^{(+)}}$"> , calcular pH.</li><li>Calcular <img src="bufferSolution_eq36011.png" alt="$C_{OHeq^{(-)}}$"> por ec. 4.</li><li>Calcular <img src="bufferSolution_eq03388.png" alt="$C_{Aeq^{(-)}}$"> y <img src="bufferSolution_eq84374.png" alt="$C_{HAeq}$"> por ecs. 1,2.</li><li>Respuesta:</li></ul></div><p><img src="bufferSolution_eq59740.png" alt="$C_{H_3Oeq^{(+)}}$">, <img src="bufferSolution_eq03665.png" alt="$pH$"></p><p><img src="bufferSolution_eq36011.png" alt="$C_{OHeq^{(-)}}$"></p><p><img src="bufferSolution_eq03388.png" alt="$C_{Aeq^{(-)}}$"></p><p><img src="bufferSolution_eq84374.png" alt="$C_{HAeq}$"></p><p><img src="bufferSolution_eq37685.png" alt="$C_{Na^{(+)}}$"></p><p><img src="bufferSolution_eq75412.png" alt="$C_{Li^{(+)}}$"></p><p><img src="bufferSolution_eq69414.png" alt="$C_{Af^{(-)}}$"></p><h2>Capacidad del amortiguador <img src="bufferSolution_eq42727.png" alt="$\beta$"><a name="6"></a></h2><p>Definici&oacute;n</p><p><img src="bufferSolution_eq94563.png" alt="$\beta = - {dC_{HAf(t0)} \over dpH} = +{dC_{LiB(t0)} \over dpH}$"></p><p>R. de cadena</p><p><img src="bufferSolution_eq95733.png" alt="$\beta = - {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} \times {dC_{H_3O^{(+)}} \over {dpH}} = + {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} \times C_{H_3O^{(+)}} \times ln(10)$"></p><p>Ecs. de balance y equilibrio</p><p><img src="bufferSolution_eq37281.png" alt="$\begin{array}{cccccccc} +{V_0 \over Vr} \times {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}}  &amp; = &amp; {dC_{HA} \over {dC_{H_3O^{(+)}}}} &amp; + 1  &amp; -   {dC_{OH^{(-)}} \over {dC_{H_3O^{(+)}}}}  &amp; =   {dC_{HA} \over {dC_{H_3O^{(+)}}}} &amp; + 1  &amp; +   {Kw \over {C_{H_3O^{(+)}}}^2} \\ -{V_0 \over Vr} \times {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}}  &amp; = &amp; {dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} &amp; - 1  &amp; +   {dC_{OH^{(-)}} \over {dC_{H_3O^{(+)}}}}  &amp; =   {dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} &amp; - 1  &amp; -   {Kw \over {C_{H_3O^{(+)}}}^2} \\ +Ka \times {dC_{HA} \over {dC_{H_3O^{(+)}}}}  &amp; = &amp; C_{H_3O^{(+)}}{dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}}  &amp;  &amp; +    C_{A^{(-)}}  &amp;  &amp; \\ \end{array}$"></p><p><img src="bufferSolution_eq19497.png" alt="$\begin{array}{ccc} (C_{A^{(-)}} - 0)  &amp; = &amp; (+1) \times \xi_5   +   (+1) \times \xi_6   +   (-1) \times \xi_7   \\ &amp; = &amp; {V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0})  -   {{C_{H_3O^{(+)}} C_{A^{(-)}}} \over {Ka}}\\ \end{array}$"></p><p><img src="bufferSolution_eq03276.png" alt="$\Rightarrow C_{A^{(-)}} = {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over {Ka+C_{H_3O^{(+)}}}}$"></p><p><img src="bufferSolution_eq90519.png" alt="$\Rightarrow {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} = {{{C_{H_3O^{(+)}}}^3 + \left( Ka + C_{A^{(-)}} \right) \times {C_{H_3O^{(+)}}}^2 + Kw \times C_{H_3O^{(+)}} + Kw \times Ka} \over {{V_0 \over Vr} \times \left( Ka \times {C_{H_3O^{(+)}}}^2 +     {C_{H_3O^{(+)}}}^3 \right)}}$"></p><p>Resultado:</p><p><img src="bufferSolution_eq41532.png" alt="${dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}}  = \left( \begin{array}{ccccc} {{{C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2 } \over {{C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2}} &amp; + &amp; {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over {\left( Ka+C_{H_3O^{(+)}}\right) \times \left({C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2 \right)}} + ...\\ &amp; + &amp; {{ Kw \times \left(Ka + C_{H_3O^{(+)}} \right)} \over {{C_{H_3O^{(+)}}}^2 \times \left( Ka+C_{H_3O^{(+)}}\right)}} \end{array} \right)$"></p><p><img src="bufferSolution_eq22633.png" alt="$-{dC_{HAf(t0)} \over {dpH}} =\beta = ln(10) \times \left[ C_{H_3O^{(+)}} + {{Kw}\over{C_{H_3O^{(+)}}}} + {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over {\left( Ka+C_{H_3O^{(+)}}\right)^2}} \right]$"></p><pre class="codeinput"><span class="keyword">function</span> bufferSolution()
 <span class="comment">% Generar ventana</span>
 screenSize  = get(0,<span class="string">'MonitorPositions'</span>);
 Ventana     = findobj(<span class="string">'Tag'</span>,<span class="string">'BufferSolutionGui'</span>);
@@ -149,6 +149,7 @@ openicon    = imread([<span class="string">'utils'</span>,filesep,<span class="s
         {<span class="keyword">...</span>
         <span class="string">'pH'</span>            []      <span class="string">''</span>;<span class="keyword">...</span>
         <span class="string">'pOH'</span>           []      <span class="string">''</span>;<span class="keyword">...</span>
+        <span class="string">'BETA'</span>          []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
         <span class="string">'pKa'</span>           []      <span class="string">''</span>;<span class="keyword">...</span>
         <span class="string">'pKb'</span>           []      <span class="string">''</span>;<span class="keyword">...</span>
         <span class="string">'C_HA'</span>          []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
@@ -159,6 +160,7 @@ openicon    = imread([<span class="string">'utils'</span>,filesep,<span class="s
         <span class="string">'C_Li'</span>          []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
         <span class="string">'C_Afuerte'</span>     []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
         <span class="string">'C_Bfuerte'</span>     []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
+        <span class="string">'C_HBfuerte'</span>     []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
         <span class="string">'C_HAfuerte'</span>    []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
         <span class="string">'C_LiBfuerte'</span>   []      <span class="string">'gmol/L'</span>;<span class="keyword">...</span>
         };
@@ -268,19 +270,14 @@ Vr              = Datos_s.Vr;
 C_HAinit        = C_HA0*V0/Vr;
 C_Ainit         = C_NaA0*V0/Vr;
 C_Na            = C_NaA0*V0/Vr; <span class="comment">%#ok&lt;NASGU&gt;</span>
-C_Bfuerte       = C_LiBfuerte0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_Bfuerte       = 0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_HBfuerte      = C_LiBfuerte0*V0/Vr; <span class="comment">%#ok&lt;NASGU&gt;</span>
 C_LiBfuerte     = 0; <span class="comment">%#ok&lt;NASGU&gt;</span>
-C_Li            = C_LiBfuerte0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_Li            = C_LiBfuerte0*V0/Vr; <span class="comment">%#ok&lt;NASGU&gt;</span>
 C_HAfuerte      = 0; <span class="comment">%#ok&lt;NASGU&gt;</span>
-C_Afuerte       = C_HAfuerte0; <span class="comment">%#ok&lt;NASGU&gt;</span>
+C_Afuerte       = C_HAfuerte0*V0/Vr; <span class="comment">%#ok&lt;NASGU&gt;</span>
 pKa             = -log10(Ka); <span class="comment">%#ok&lt;NASGU&gt;</span>
 pKb             = -log10(Kw/Ka); <span class="comment">%#ok&lt;NASGU&gt;</span>
-
-<span class="comment">% Datos_entrada{...</span>
-<span class="comment">%     strcmp(Datos_entrada(:,1),...</span>
-<span class="comment">%     'C_HAinicial'),2}...</span>
-<span class="comment">%     = C_HAinit;</span>
-
 
 <span class="comment">% Polinomio C(1)*X^N + ... + C(N)*X + C(N+1) = 0</span>
 <span class="comment">% Se representa con el vector C = [C(1),C(2),...,C(N)];</span>
@@ -316,6 +313,13 @@ C_A             = <span class="keyword">...</span>
     + (C_H3O - C_OH);
 pH              = -log10(C_H3O);
 pOH             = -log10(C_OH); <span class="comment">%#ok&lt;NASGU&gt;</span>
+
+BETA            = <span class="keyword">...</span>
+    log(10)*(<span class="keyword">...</span>
+    C_H3O + Kw./C_H3O + <span class="keyword">...</span>
+    (C_HAinit+C_Ainit).*Ka.*C_H3O ./ <span class="keyword">...</span>
+    (Ka+C_H3O).^2 <span class="keyword">...</span>
+    );
 
 diferencias     = <span class="keyword">...</span><span class="comment">.</span>
     [(C_HA - C_HAinit)';(C_A - C_Ainit)']';
@@ -374,10 +378,11 @@ pH_Barrido      = 0:(14/80):14;
 C_H3O_Barrido   = 10.^(-pH_Barrido);
 alpha_0         = C_H3O_Barrido./(C_H3O_Barrido+Ka);
 alpha_1         = Ka./(C_H3O_Barrido+Ka);
-BETA            = <span class="keyword">...</span>
+BETA_Barrido    = <span class="keyword">...</span>
     log(10)*(<span class="keyword">...</span>
-    Kw./C_H3O_Barrido+C_H3O_Barrido <span class="keyword">...</span>
-    +(C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido./(Ka+C_H3O_Barrido).^2 <span class="keyword">...</span>
+    C_H3O_Barrido + Kw./C_H3O_Barrido + <span class="keyword">...</span>
+    (C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido ./ <span class="keyword">...</span>
+    (Ka+C_H3O_Barrido).^2 <span class="keyword">...</span>
     );
 
 plot(handles.Eje1,<span class="keyword">...</span>
@@ -387,7 +392,7 @@ legend(handles.Eje1,<span class="string">'\alpha_0'</span>,<span class="string">
 xlabel(handles.Eje1,<span class="string">'pH'</span>);
 
 plot(handles.Eje2,<span class="keyword">...</span>
-    pH_Barrido,BETA,<span class="string">'-'</span>)
+    pH_Barrido,BETA_Barrido,<span class="string">'-'</span>)
 legend(handles.Eje2,<span class="string">'\beta'</span>);
 xlabel(handles.Eje2,<span class="string">'pH'</span>);
 
@@ -416,19 +421,21 @@ posicionDeNota  = [cruce_pH,cruce_alpha_0];
     posicionEnX     = pH(raizSeleccionada);
     posicionDeNota  = <span class="keyword">...</span>
         [pH(raizSeleccionada),<span class="keyword">...</span>
-        interp1(pH_Barrido,BETA,<span class="keyword">...</span>
+        interp1(pH_Barrido,BETA_Barrido,<span class="keyword">...</span>
         pH(raizSeleccionada),<span class="string">'nearest'</span>,<span class="string">'extrap'</span>)];
     <span class="keyword">if</span> posicionEnX &gt;= puntoMedioX
         text(<span class="string">'Parent'</span>,handles.Eje2,<span class="keyword">...</span>
             <span class="string">'Position'</span>,posicionDeNota,<span class="keyword">...</span>
             <span class="string">'String'</span>,[<span class="string">'pH= '</span>,num2str(pH(raizSeleccionada)),<span class="keyword">...</span>
+            <span class="string">', \beta='</span>,num2str(BETA(raizSeleccionada)),<span class="keyword">...</span>
             <span class="string">'\rightarrow\bullet'</span>,],<span class="string">'Fontweight'</span>,<span class="string">'bold'</span>,<span class="keyword">...</span>
             <span class="string">'HorizontalAlignment'</span>,<span class="string">'right'</span>);
     <span class="keyword">else</span>
         text(<span class="string">'Parent'</span>,handles.Eje2,<span class="keyword">...</span>
             <span class="string">'Position'</span>,posicionDeNota,<span class="keyword">...</span>
             <span class="string">'String'</span>,[<span class="string">'\bullet\leftarrow'</span>,<span class="keyword">...</span>
-            <span class="string">'pH= '</span>,num2str(pH(raizSeleccionada))],<span class="keyword">...</span>
+            <span class="string">'pH= '</span>,num2str(pH(raizSeleccionada)),<span class="keyword">...</span>
+            <span class="string">', \beta='</span>,num2str(BETA(raizSeleccionada))],<span class="keyword">...</span>
             <span class="string">'Fontweight'</span>,<span class="string">'bold'</span>);
     <span class="keyword">end</span>
 <span class="keyword">end</span>
@@ -556,7 +563,7 @@ success = success &amp;&amp; fileattrib(<span class="string">'./DATA'</span>,<sp
     <span class="keyword">end</span>
 <span class="keyword">end</span>
 <span class="keyword">end</span>
-</pre><img vspace="5" hspace="5" src="bufferSolution_01.png" alt=""> <p class="footer"><br>
+</pre><p class="footer"><br>
       Published with MATLAB&reg; 7.13<br></p></div><!--
 ##### SOURCE BEGIN #####
 %% BUFFER SOLUTIONS
@@ -795,6 +802,83 @@ success = success &amp;&amp; fileattrib(<span class="string">'./DATA'</span>,<sp
 % $C_{Li^{(+)}}$
 %
 % $C_{Af^{(-)}}$
+%% Capacidad del amortiguador $\beta$
+% Definición
+%
+% $\beta = - {dC_{HAf(t0)} \over dpH}
+% = +{dC_{LiB(t0)} \over dpH}$
+% 
+% R. de cadena 
+%
+% $\beta = - {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}}
+% \times {dC_{H_3O^{(+)}} \over {dpH}} = 
+% + {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} 
+% \times C_{H_3O^{(+)}} \times ln(10)$
+%
+% Ecs. de balance y equilibrio
+%
+% $\begin{array}{cccccccc}
+% +{V_0 \over Vr} \times {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} 
+%  & = & {dC_{HA} \over {dC_{H_3O^{(+)}}}} & + 1 
+%  & -   {dC_{OH^{(-)}} \over {dC_{H_3O^{(+)}}}}
+%  & =   {dC_{HA} \over {dC_{H_3O^{(+)}}}} & + 1 
+%  & +   {Kw \over {C_{H_3O^{(+)}}}^2} \\
+% -{V_0 \over Vr} \times {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} 
+%  & = & {dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} & - 1 
+%  & +   {dC_{OH^{(-)}} \over {dC_{H_3O^{(+)}}}}
+%  & =   {dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} & - 1 
+%  & -   {Kw \over {C_{H_3O^{(+)}}}^2} \\
+% +Ka \times {dC_{HA} \over {dC_{H_3O^{(+)}}}} 
+%  & = & C_{H_3O^{(+)}}{dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} 
+%  &     
+%  & +    C_{A^{(-)}}
+%  & 
+%  & \\
+% \end{array}$
+%
+% $\begin{array}{ccc}
+% (C_{A^{(-)}} - 0)
+%  & = & (+1) \times \xi_5
+%   +   (+1) \times \xi_6
+%   +   (-1) \times \xi_7   \\
+% & = & {V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) 
+%  -   {{C_{H_3O^{(+)}} C_{A^{(-)}}} \over {Ka}}\\
+% \end{array}$
+%
+% $\Rightarrow C_{A^{(-)}} = 
+% {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over
+% {Ka+C_{H_3O^{(+)}}}}$
+%
+% $\Rightarrow {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} = 
+% {{{C_{H_3O^{(+)}}}^3 + \left( Ka + C_{A^{(-)}} \right)
+% \times {C_{H_3O^{(+)}}}^2 + Kw \times C_{H_3O^{(+)}}
+% + Kw \times Ka}
+% \over {{V_0 \over Vr} \times \left( Ka \times {C_{H_3O^{(+)}}}^2  
+% +     {C_{H_3O^{(+)}}}^3 \right)}}$
+%
+% Resultado: 
+%
+% 
+% ${dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}}  = \left(
+% \begin{array}{ccccc} 
+% {{{C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2 } \over 
+% {{C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2}} 
+% & + & {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over
+% {\left( Ka+C_{H_3O^{(+)}}\right) \times 
+% \left({C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2 \right)}} 
+% + ...\\
+% & + & {{ Kw \times \left(Ka + C_{H_3O^{(+)}} \right)} 
+% \over {{C_{H_3O^{(+)}}}^2 \times 
+% \left( Ka+C_{H_3O^{(+)}}\right)}}
+% \end{array}
+% \right)$
+%
+% $-{dC_{HAf(t0)} \over {dpH}} =\beta = ln(10) \times \left[
+% C_{H_3O^{(+)}} + {{Kw}\over{C_{H_3O^{(+)}}}} +
+% {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over
+% {\left( Ka+C_{H_3O^{(+)}}\right)^2}} 
+% \right]$
+%% 
 function bufferSolution()
 % Generar ventana
 screenSize  = get(0,'MonitorPositions');
@@ -882,6 +966,7 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         {...                
         'pH'            []      '';...
         'pOH'           []      '';...
+        'BETA'          []      'gmol/L';...
         'pKa'           []      '';...
         'pKb'           []      '';...
         'C_HA'          []      'gmol/L';...
@@ -892,6 +977,7 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         'C_Li'          []      'gmol/L';...
         'C_Afuerte'     []      'gmol/L';...
         'C_Bfuerte'     []      'gmol/L';...
+        'C_HBfuerte'     []      'gmol/L';...
         'C_HAfuerte'    []      'gmol/L';...
         'C_LiBfuerte'   []      'gmol/L';...
         };
@@ -1001,19 +1087,14 @@ Vr              = Datos_s.Vr;
 C_HAinit        = C_HA0*V0/Vr;
 C_Ainit         = C_NaA0*V0/Vr;
 C_Na            = C_NaA0*V0/Vr; %#ok<NASGU>
-C_Bfuerte       = C_LiBfuerte0; %#ok<NASGU>
+C_Bfuerte       = 0; %#ok<NASGU>
+C_HBfuerte      = C_LiBfuerte0*V0/Vr; %#ok<NASGU>
 C_LiBfuerte     = 0; %#ok<NASGU>
-C_Li            = C_LiBfuerte0; %#ok<NASGU>
+C_Li            = C_LiBfuerte0*V0/Vr; %#ok<NASGU>
 C_HAfuerte      = 0; %#ok<NASGU>
-C_Afuerte       = C_HAfuerte0; %#ok<NASGU>
+C_Afuerte       = C_HAfuerte0*V0/Vr; %#ok<NASGU>
 pKa             = -log10(Ka); %#ok<NASGU>
 pKb             = -log10(Kw/Ka); %#ok<NASGU>
-
-% Datos_entrada{...
-%     strcmp(Datos_entrada(:,1),...
-%     'C_HAinicial'),2}...
-%     = C_HAinit;
-
 
 % Polinomio C(1)*X^N + ... + C(N)*X + C(N+1) = 0
 % Se representa con el vector C = [C(1),C(2),...,C(N)];
@@ -1049,6 +1130,13 @@ C_A             = ...
     + (C_H3O - C_OH);
 pH              = -log10(C_H3O);
 pOH             = -log10(C_OH); %#ok<NASGU>
+
+BETA            = ...
+    log(10)*(...
+    C_H3O + Kw./C_H3O + ...
+    (C_HAinit+C_Ainit).*Ka.*C_H3O ./ ...
+    (Ka+C_H3O).^2 ...
+    ); 
 
 diferencias     = ....
     [(C_HA - C_HAinit)';(C_A - C_Ainit)']';
@@ -1107,10 +1195,11 @@ pH_Barrido      = 0:(14/80):14;
 C_H3O_Barrido   = 10.^(-pH_Barrido);
 alpha_0         = C_H3O_Barrido./(C_H3O_Barrido+Ka);
 alpha_1         = Ka./(C_H3O_Barrido+Ka);
-BETA            = ...
+BETA_Barrido    = ...
     log(10)*(...
-    Kw./C_H3O_Barrido+C_H3O_Barrido ...
-    +(C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido./(Ka+C_H3O_Barrido).^2 ...
+    C_H3O_Barrido + Kw./C_H3O_Barrido + ...
+    (C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido ./ ...
+    (Ka+C_H3O_Barrido).^2 ...
     );
 
 plot(handles.Eje1,...
@@ -1120,7 +1209,7 @@ legend(handles.Eje1,'\alpha_0','\alpha_1');
 xlabel(handles.Eje1,'pH');
 
 plot(handles.Eje2,...
-    pH_Barrido,BETA,'-')
+    pH_Barrido,BETA_Barrido,'-')
 legend(handles.Eje2,'\beta');
 xlabel(handles.Eje2,'pH');
 
@@ -1149,19 +1238,21 @@ if isreal(pH(raizSeleccionada))
     posicionEnX     = pH(raizSeleccionada);
     posicionDeNota  = ...
         [pH(raizSeleccionada),...
-        interp1(pH_Barrido,BETA,...
+        interp1(pH_Barrido,BETA_Barrido,...
         pH(raizSeleccionada),'nearest','extrap')];
     if posicionEnX >= puntoMedioX
         text('Parent',handles.Eje2,...
             'Position',posicionDeNota,...
             'String',['pH= ',num2str(pH(raizSeleccionada)),...
+            ', \beta=',num2str(BETA(raizSeleccionada)),...
             '\rightarrow\bullet',],'Fontweight','bold',...
             'HorizontalAlignment','right');
     else
         text('Parent',handles.Eje2,...
             'Position',posicionDeNota,...
             'String',['\bullet\leftarrow',...
-            'pH= ',num2str(pH(raizSeleccionada))],...
+            'pH= ',num2str(pH(raizSeleccionada)),...
+            ', \beta=',num2str(BETA(raizSeleccionada))],...
             'Fontweight','bold');
     end
 end

@@ -234,6 +234,83 @@
 % $C_{Li^{(+)}}$
 %
 % $C_{Af^{(-)}}$
+%% Capacidad del amortiguador $\beta$
+% Definición
+%
+% $\beta = - {dC_{HAf(t0)} \over dpH}
+% = +{dC_{LiB(t0)} \over dpH}$
+% 
+% R. de cadena 
+%
+% $\beta = - {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}}
+% \times {dC_{H_3O^{(+)}} \over {dpH}} = 
+% + {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} 
+% \times C_{H_3O^{(+)}} \times ln(10)$
+%
+% Ecs. de balance y equilibrio
+%
+% $\begin{array}{cccccccc}
+% +{V_0 \over Vr} \times {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} 
+%  & = & {dC_{HA} \over {dC_{H_3O^{(+)}}}} & + 1 
+%  & -   {dC_{OH^{(-)}} \over {dC_{H_3O^{(+)}}}}
+%  & =   {dC_{HA} \over {dC_{H_3O^{(+)}}}} & + 1 
+%  & +   {Kw \over {C_{H_3O^{(+)}}}^2} \\
+% -{V_0 \over Vr} \times {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} 
+%  & = & {dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} & - 1 
+%  & +   {dC_{OH^{(-)}} \over {dC_{H_3O^{(+)}}}}
+%  & =   {dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} & - 1 
+%  & -   {Kw \over {C_{H_3O^{(+)}}}^2} \\
+% +Ka \times {dC_{HA} \over {dC_{H_3O^{(+)}}}} 
+%  & = & C_{H_3O^{(+)}}{dC_{A^{(-)}} \over {dC_{H_3O^{(+)}}}} 
+%  &     
+%  & +    C_{A^{(-)}}
+%  & 
+%  & \\
+% \end{array}$
+%
+% $\begin{array}{ccc}
+% (C_{A^{(-)}} - 0)
+%  & = & (+1) \times \xi_5
+%   +   (+1) \times \xi_6
+%   +   (-1) \times \xi_7   \\
+% & = & {V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) 
+%  -   {{C_{H_3O^{(+)}} C_{A^{(-)}}} \over {Ka}}\\
+% \end{array}$
+%
+% $\Rightarrow C_{A^{(-)}} = 
+% {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over
+% {Ka+C_{H_3O^{(+)}}}}$
+%
+% $\Rightarrow {dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}} = 
+% {{{C_{H_3O^{(+)}}}^3 + \left( Ka + C_{A^{(-)}} \right)
+% \times {C_{H_3O^{(+)}}}^2 + Kw \times C_{H_3O^{(+)}}
+% + Kw \times Ka}
+% \over {{V_0 \over Vr} \times \left( Ka \times {C_{H_3O^{(+)}}}^2  
+% +     {C_{H_3O^{(+)}}}^3 \right)}}$
+%
+% Resultado: 
+%
+% 
+% ${dC_{HAf(t0)} \over {dC_{H_3O^{(+)}}}}  = \left(
+% \begin{array}{ccccc} 
+% {{{C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2 } \over 
+% {{C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2}} 
+% & + & {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over
+% {\left( Ka+C_{H_3O^{(+)}}\right) \times 
+% \left({C_{H_3O^{(+)}}}^3 + Ka \times {C_{H_3O^{(+)}}}^2 \right)}} 
+% + ...\\
+% & + & {{ Kw \times \left(Ka + C_{H_3O^{(+)}} \right)} 
+% \over {{C_{H_3O^{(+)}}}^2 \times 
+% \left( Ka+C_{H_3O^{(+)}}\right)}}
+% \end{array}
+% \right)$
+%
+% $-{dC_{HAf(t0)} \over {dpH}} =\beta = ln(10) \times \left[
+% C_{H_3O^{(+)}} + {{Kw}\over{C_{H_3O^{(+)}}}} +
+% {{{V_0 \over Vr} \times (C_{HA_0}-C_{NaA_0}) \times Ka} \over
+% {\left( Ka+C_{H_3O^{(+)}}\right)^2}} 
+% \right]$
+%% 
 function bufferSolution()
 % Generar ventana
 screenSize  = get(0,'MonitorPositions');
@@ -321,6 +398,7 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         {...                
         'pH'            []      '';...
         'pOH'           []      '';...
+        'BETA'          []      'gmol/L';...
         'pKa'           []      '';...
         'pKb'           []      '';...
         'C_HA'          []      'gmol/L';...
@@ -331,6 +409,7 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         'C_Li'          []      'gmol/L';...
         'C_Afuerte'     []      'gmol/L';...
         'C_Bfuerte'     []      'gmol/L';...
+        'C_HBfuerte'     []      'gmol/L';...
         'C_HAfuerte'    []      'gmol/L';...
         'C_LiBfuerte'   []      'gmol/L';...
         };
@@ -440,19 +519,14 @@ Vr              = Datos_s.Vr;
 C_HAinit        = C_HA0*V0/Vr;
 C_Ainit         = C_NaA0*V0/Vr;
 C_Na            = C_NaA0*V0/Vr; %#ok<NASGU>
-C_Bfuerte       = C_LiBfuerte0; %#ok<NASGU>
+C_Bfuerte       = 0; %#ok<NASGU>
+C_HBfuerte      = C_LiBfuerte0*V0/Vr; %#ok<NASGU>
 C_LiBfuerte     = 0; %#ok<NASGU>
-C_Li            = C_LiBfuerte0; %#ok<NASGU>
+C_Li            = C_LiBfuerte0*V0/Vr; %#ok<NASGU>
 C_HAfuerte      = 0; %#ok<NASGU>
-C_Afuerte       = C_HAfuerte0; %#ok<NASGU>
+C_Afuerte       = C_HAfuerte0*V0/Vr; %#ok<NASGU>
 pKa             = -log10(Ka); %#ok<NASGU>
 pKb             = -log10(Kw/Ka); %#ok<NASGU>
-
-% Datos_entrada{...
-%     strcmp(Datos_entrada(:,1),...
-%     'C_HAinicial'),2}...
-%     = C_HAinit;
-
 
 % Polinomio C(1)*X^N + ... + C(N)*X + C(N+1) = 0
 % Se representa con el vector C = [C(1),C(2),...,C(N)];
@@ -488,6 +562,13 @@ C_A             = ...
     + (C_H3O - C_OH);
 pH              = -log10(C_H3O);
 pOH             = -log10(C_OH); %#ok<NASGU>
+
+BETA            = ...
+    log(10)*(...
+    C_H3O + Kw./C_H3O + ...
+    (C_HAinit+C_Ainit).*Ka.*C_H3O ./ ...
+    (Ka+C_H3O).^2 ...
+    ); 
 
 diferencias     = ....
     [(C_HA - C_HAinit)';(C_A - C_Ainit)']';
@@ -546,10 +627,11 @@ pH_Barrido      = 0:(14/80):14;
 C_H3O_Barrido   = 10.^(-pH_Barrido);
 alpha_0         = C_H3O_Barrido./(C_H3O_Barrido+Ka);
 alpha_1         = Ka./(C_H3O_Barrido+Ka);
-BETA            = ...
+BETA_Barrido    = ...
     log(10)*(...
-    Kw./C_H3O_Barrido+C_H3O_Barrido ...
-    +(C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido./(Ka+C_H3O_Barrido).^2 ...
+    C_H3O_Barrido + Kw./C_H3O_Barrido + ...
+    (C_HAinit+C_Ainit).*Ka.*C_H3O_Barrido ./ ...
+    (Ka+C_H3O_Barrido).^2 ...
     );
 
 plot(handles.Eje1,...
@@ -559,7 +641,7 @@ legend(handles.Eje1,'\alpha_0','\alpha_1');
 xlabel(handles.Eje1,'pH');
 
 plot(handles.Eje2,...
-    pH_Barrido,BETA,'-')
+    pH_Barrido,BETA_Barrido,'-')
 legend(handles.Eje2,'\beta');
 xlabel(handles.Eje2,'pH');
 
@@ -588,19 +670,21 @@ if isreal(pH(raizSeleccionada))
     posicionEnX     = pH(raizSeleccionada);
     posicionDeNota  = ...
         [pH(raizSeleccionada),...
-        interp1(pH_Barrido,BETA,...
+        interp1(pH_Barrido,BETA_Barrido,...
         pH(raizSeleccionada),'nearest','extrap')];
     if posicionEnX >= puntoMedioX
         text('Parent',handles.Eje2,...
             'Position',posicionDeNota,...
             'String',['pH= ',num2str(pH(raizSeleccionada)),...
+            ', \beta=',num2str(BETA(raizSeleccionada)),...
             '\rightarrow\bullet',],'Fontweight','bold',...
             'HorizontalAlignment','right');
     else
         text('Parent',handles.Eje2,...
             'Position',posicionDeNota,...
             'String',['\bullet\leftarrow',...
-            'pH= ',num2str(pH(raizSeleccionada))],...
+            'pH= ',num2str(pH(raizSeleccionada)),...
+            ', \beta=',num2str(BETA(raizSeleccionada))],...
             'Fontweight','bold');
     end
 end
