@@ -123,13 +123,59 @@
 % (+1) \times \xi_7 & \\
 %     & & 0 & & & & \\
 % C_{A^{(-)}} & - & 
-% C_{A^{(-)}(t0)} & = & (+1) \times \xi_6 & +
-% (-1) \times \xi_7 & \\
+% \overbrace {C_{A^{(-)}(t0)}} & = & (+1) \times \xi_5 & +
+% (+1) \times \xi_6 & + (-1) \times \xi_7  \\
+% \end{array}$
+%
+% Eliminar los avances de reacción $\xi_i$ a favor de los parámetros 
+% especificados, con la sig. diferencia: 
+%
+% $\begin{array}{ccc}
+% (C_{H_3O^{(+)}} - C_{H_3O^{(+)}(t0)}) - 
+% (C_{OH^{(-)}} - C_{OH^{(-)}(t0)})     & = &
+% (C_{H_3O^{(+)}} - C_{OH^{(-)}}) \\
+%                                       & = &
+% (\xi_3 - \xi_2) + (\xi_6 - \xi_7) \\
+% \end{array}$
+% 
+% $\begin{array}{ccc}
+% (C_{H_3O^{(+)}} - C_{OH^{(-)}}) & = &
+% (C_{HAf(t0)}-C_{LiB(t0)}) - (C_{HA}-C_{HA(t0)}) \\
+%                                       & = &
+% (C_{HAf(t0)}-C_{LiB(t0)}) + (C_{A^{(-)}}-C_{NaA(t0)}) \\
+%                                       & = &
+% {V_0 \over Vr}(C_{HAf_0}-C_{LiB_0}) - 
+% (C_{HA}-{V_0 \over Vr}C_{HA_0}) \\
+%                                       & = &
+% {V_0 \over Vr}(C_{HAf_0}-C_{LiB_0}) + 
+% (C_{A^{(-)}}-{V_0 \over Vr}C_{NaA_0}) \\
 % \end{array}$
 % 
 % * Balance de carga
 %
+% $\begin{array}{ccc}
+%       &       0       & \\
+% 0 =   C_{H_3O^{(+)}} + C_{Na^{(+)}} + C_{Li^{(+)}} - &
+%       \overbrace {C_{B^{(-)}}} & - C_{Af^{(-)}} - C_{A^{(-)}} - 
+%       C_{OH^{(-)}}
+% \end{array}$
+%
+% Reordenando se observa que en este caso no es una ecuación 
+% independiente del balance de materia.
+%
+% $\begin{array}{ccc}
+% (C_{H_3O^{(+)}} - C_{OH^{(-)}}) & = &
+% (C_{Af^{(-)}}-C_{Li^{(+)}}) + (C_{A^{(-)}}-C_{Na^{(+)}}) \\
+%                                       & = &
+% (C_{HAf(t0)}-C_{LiB(t0)}) + (C_{A^{(-)}}-C_{NaA(t0)})
+% \end{array}$
+%
 % * Equilibrios
+%
+% $Ka = C_{H_3Oeq^{(+)}} \times C_{Aeq^{(-)}} / 
+%      C_{HAeq}$
+%
+% $Kw = C_{H_3Oeq^{(+)}} \times C_{OHeq^{(-)}}$
 %
 % Resulta un sistema algebráico no lineal, 4 ecuaciones 
 % *independientes* y 4 variables.
@@ -150,7 +196,7 @@
 % C_{OHeq^{(-)}} \\
 % \end{array}$
 %% Solución
-% Reducción a 1 ecuación polinomial de 3er orden.
+% Reducción a 1 polinomio de 3er grado.
 % 
 % $\begin{array}{cccccc} 
 % 0 & = & + & 
