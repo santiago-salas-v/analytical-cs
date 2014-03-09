@@ -482,7 +482,7 @@ if isempty(Ventana) || ~ishandle(Ventana) || ~isscalar(Ventana)
         'SelectedObject',[],'SelectionChangeFcn',...
         {@CambioDeBoton,handles});
     set(BotonDeReporte,'ClickedCallback',...
-        {@GenerarReporte,handles});
+        {@MostrarProcedimiento,handles});
     set(BotonDeGuardar,'ClickedCallback',...
         {@GenerarCSV,handles});
     set(BotonDeAbrir,'ClickedCallback',...
@@ -725,13 +725,20 @@ funcionDeCalcular(hObject,eventData,handles,...
     'SelectedObject'),'UserData'));
 end
 
-function GenerarReporte(~,~,~)
+function GenerarReporte()
 try
     publish('bufferSolution.m','format','html','evalCode',true);
 catch error
     msgbox({error.message,'Opeing content'});
 end
-web('html/bufferSolution.html');
+end
+
+function MostrarProcedimiento(~,~,~)
+if exist('html/bufferSolution.html','file') ~= 0
+    web('html/bufferSolution.html');
+else
+    GenerarReporte;
+end
 end
 
 function AbrirCSV(hObject,eventData,handles)
