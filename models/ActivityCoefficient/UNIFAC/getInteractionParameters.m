@@ -1,5 +1,7 @@
 function a_mk   = getInteractionParameters()
 %INTERACTION PARAMETERS
-[~,a_mk_chars]  = cargarCSV('a_mk.csv');
-a_mk            = cellfun(@str2num,a_mk_chars);
+[~,interaction_parameters_chars]    = ...
+    cargarCSV('interaction_parameters.csv');
+a_mk                                = ...
+    cellfun(@str2num,interaction_parameters_chars);
 end
