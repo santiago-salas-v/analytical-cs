@@ -1,5 +1,6 @@
 function a_mk   = getInteractionParameters()
-%INTERACTION PARAMETERS
+%INTERACTION PARAMETERS returns interaction parameters between UNIFAC 
+% subgroups
 [~,interaction_parameters_chars]    = ...
     cargarCSV('interaction_parameters.csv');
 a_mk                                = ...

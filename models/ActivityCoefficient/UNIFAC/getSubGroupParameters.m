@@ -1,5 +1,5 @@
 function subgroup_parameters = getSubGroupParameters()
-%SUBGROUP PARAMETERS
+%SUBGROUP PARAMETERS returns parameters of all UNIFAC subgroups
 [~,subgroup_parameters_chars]  ...
                 = cargarCSV('subgroup_parameters.csv');
 subgroup_parameters ...

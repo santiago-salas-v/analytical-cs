@@ -20,8 +20,12 @@ for i=1:filas
                 islogical(Datos{i,j})
             fprintf(fid,'%o|',Datos{i,j});
         end
-    end    
-    fprintf(fid,'%s\n',Datos{i,columnas}); 
+    end
+    if isnumeric(Datos{i,columnas})
+        fprintf(fid,'%s\n',num2str(Datos{i,columnas}));
+    elseif ~isnumeric(Datos{i,columnas})
+        fprintf(fid,'%s\n',Datos{i,columnas});
+    end
 end
 output=fclose(fid);
 exito=~logical(output);
