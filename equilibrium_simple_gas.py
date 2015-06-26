@@ -18,7 +18,7 @@ class MainForm(QtGui.QWidget):
         self.setFixedWidth(400)
         self.setMinimumHeight(500)
         self.setWindowTitle('Icon')
-        self.setWindowIcon(QtGui.QIcon('./utils/web_ignorethis.png'))
+        self.setWindowIcon(QtGui.QIcon('./utils/ch_pot.png'))
 
         self.table_properties = QtGui.QTableWidget(4, 2, self)
         self.table_state_funcs = QtGui.QTableWidget(6, 3, self)
