@@ -22,7 +22,10 @@ class MainForm(QtGui.QWidget):
         # Instantiate
         self.gas = ct.Solution('gri30.cti')
         # Properties T,P,X
-        self.gas.TPY = 300, 100000, 'CH4:1, O2:2'
+        nitrogen_over_oxygen_mole_ratio = 78.85/21.15
+        initial_nitrogen = 2*nitrogen_over_oxygen_mole_ratio
+        self.gas.TPY = 300, 100000, 'CH4:1, O2:2, N2:' + \
+                                    str(initial_nitrogen)
         # Equilibrate @ constant TP
         print '\n\n Equilibrating... \n\n'
         self.gas.equilibrate('TP')
@@ -44,10 +47,13 @@ class MainForm(QtGui.QWidget):
                                       QtCore.SIGNAL('cellChanged(int,int)'),
                                       self.new_properties)
 
+        self.clear_composition = QtGui.QPushButton('Clear Composition')
+
         v_box = QtGui.QVBoxLayout(self)
         v_box.addStrut(5)
         v_box.addWidget(self.table_properties)
         v_box.addWidget(self.table_state_funcs)
+        v_box.addWidget(self.clear_composition)
         v_box.addWidget(self.table_composition)
         self.setLayout(v_box)
 
