@@ -8,12 +8,15 @@ from PyQt4 import QtGui, QtCore
 app = QtGui.QApplication(sys.argv)
 # Widget class with changed icon
 
+
 class NSortableTableWidgetItem(QtGui.QTableWidgetItem):
     # Implement less than (<) for numeric table widget items.
     def __init__(self, text):
         QtGui.QTableWidgetItem.__init__(self, text)
+
     def __lt__(self, y):
         return float(self.text()) < float(y.text())
+
 
 class MainForm(QtGui.QWidget):
 
@@ -48,6 +51,18 @@ class MainForm(QtGui.QWidget):
                                       self.new_properties)
 
         self.clear_composition = QtGui.QPushButton('Clear Composition')
+        self.clear_composition.connect(self.clear_composition,
+                                       QtCore.SIGNAL('clicked()'),
+                                       self.clear_composition_proc)
+
+        # Widths
+        for table in [self.table_state_funcs, self.table_composition, self.table_properties]:
+            table.horizontalHeader().setStretchLastSection(True)
+            table.verticalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+            if table != self.table_composition:
+                table.verticalHeader().setStretchLastSection(True)
+            else:
+                table.horizontalHeader().setResizeMode(QtGui.QHeaderView.Fixed)
 
         v_box = QtGui.QVBoxLayout(self)
         v_box.addStrut(5)
@@ -55,8 +70,8 @@ class MainForm(QtGui.QWidget):
         v_box.addWidget(self.table_state_funcs)
         v_box.addWidget(self.clear_composition)
         v_box.addWidget(self.table_composition)
-        self.setLayout(v_box)
 
+        self.setLayout(v_box)
 
     def print_eq(self):
         ## PRINTING
@@ -174,6 +189,13 @@ class MainForm(QtGui.QWidget):
         self.gas.equilibrate('TP')
         self.print_eq()
 
+    def clear_composition_proc(self):
+        self.table_composition.setSortingEnabled(False)
+        for i in range(1, self.table_composition.rowCount()):
+            self.table_composition.setItem(i, 2,
+                                           QtGui.QTableWidgetItem(str(0.0)))
+        self.table_composition.setSortingEnabled(True)
+        self.new_properties(0, 1)
 icon = MainForm()
 icon.print_eq()
 icon.show()

@@ -2,6 +2,7 @@
 *.asv
 *ignorethis*
 *.tmp
+*.pyc
 *~$.*
 *~
 .idea/
