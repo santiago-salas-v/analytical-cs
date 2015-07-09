@@ -1,4 +1,3 @@
-__author__ = 'Santiago Salas'
 import cantera as ct
 import csv
 import numpy as np
@@ -62,7 +61,7 @@ class MainForm(QtGui.QWidget):
             if table != self.table_composition:
                 table.verticalHeader().setStretchLastSection(True)
             else:
-                table.horizontalHeader().setResizeMode(QtGui.QHeaderView.Fixed)
+                table.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
 
         v_box = QtGui.QVBoxLayout(self)
         v_box.addStrut(5)
